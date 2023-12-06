@@ -1,0 +1,173 @@
+    return sum(numeros)
+
+# Función para realizar la resta de una lista de números
+def resta_numeros(numeros):
+    resultado = numeros[0]
+    for num in numeros[1:]:
+        resultado -= num
+    return resultado
+
+# Función para realizar la multiplicación de una lista de números
+def multiplicacion_numeros(numeros):
+    resultado = 1
+    for num in numeros:
+        resultado *= num
+    return resultado
+
+# Función para realizar la división de un número entre otro
+def division(numeros, divisor):
+    resultados = [num / divisor for num in numeros]
+    return resultados
+
+# 2. OPERACIONES ARITMÉTICAS EXTENDIDAS
+
+# Función para realizar la división entera de un número entre otro
+def division_entera(numeros, divisor):
+    resultados = [num // divisor for num in numeros]
+    return resultados
+
+# Función para calcular el residuo de la división de un número entre otro
+def residuo(numeros, divisor):
+    resultados = [num % divisor for num in numeros]
+    return resultados
+
+# Función para calcular la potencia de un número elevado a n
+def potencia(numeros, n):
+    resultados = [num ** n for num in numeros]
+    return resultados
+
+# Función para calcular la raíz n de un número
+def raiz(numeros, n):
+    resultados = [num ** (1/n) for num in numeros]
+    return resultados
+
+# Función para calcular el inverso de un número
+def inverso(numeros):
+    resultados = [1/num for num in numeros]
+    return resultados
+
+# Función para calcular el factorial de un número
+def factorial(numeros):
+    resultados = []
+    for num in numeros:
+        resultado = 1
+        for i in range(1, int(num) + 1):
+            resultado *= i
+        resultados.append(resultado)
+    return resultados
+
+# 3. OPERACIONES ESTADÍSTICAS BÁSICAS
+
+# Función para calcular el promedio de una lista de números
+def promedio(numeros):
+    return sum(numeros) / len(numeros)
+
+# Función para calcular la mediana de una lista de números
+def mediana(numeros):
+    numeros.sort()
+    n = len(numeros)
+    if n % 2 == 0:
+        mediana = (numeros[n // 2 - 1] + numeros[n // 2]) / 2
+    else:
+        mediana = numeros[n // 2]
+    return mediana
+
+# Función para calcular la moda de una lista de números
+def moda(numeros):
+    conteo = {}
+    for num in numeros:
+        if num in conteo:
+            conteo[num] += 1
+        else:
+            conteo[num] = 1
+    moda = [key for key, value in conteo.items() if value == max(conteo.values())]
+    return moda
+
+# CALCULADORA CIENTÍFICA
+
+# Función principal para interactuar con el usuario
+def calculadora_cientifica():
+    print("Calculadora Científica")
+    print("Operaciones disponibles:")
+    print("1. Suma")
+    print("2. Resta")
+    print("3. Multiplicación")
+    print("4. División")
+    print("5. División Entera")
+    print("6. Residuo")
+    print("7. Potencia")
+    print("8. Raíz")
+    print("9. Inverso")
+    print("10. Factorial")
+    print("11. Promedio")
+    print("12. Mediana")
+    print("13. Moda")
+    print("0. Salir")
+
+    while True:
+        opcion = input("Seleccione una operación (0-13): ")
+        
+        if opcion == '0':
+            print("¡Hasta luego!")
+            break
+        elif opcion in ['1', '2', '3']:
+            try:
+                numeros = [float(x) for x in input("Ingrese al menos dos números separados por espacios: ").split()]
+                if len(numeros) < 2:
+                    print("Error: Debe ingresar al menos dos números.")
+                    continue
+
+                if opcion == '1':
+                    print("Resultado de la suma:", suma_numeros(numeros))
+                elif opcion == '2':
+                    print("Resultado de la resta:", resta_numeros(numeros))
+                elif opcion == '3':
+                    print("Resultado de la multiplicación:", multiplicacion_numeros(numeros))
+            except ValueError:
+                print("Error: Ingrese números válidos.")
+        elif opcion in ['4', '5', '6', '7', '8', '9', '10', '11', '12', '13']:
+            try:
+                numeros = [float(x) for x in input("Ingrese los números separados por espacios: ").split()]
+
+                if opcion in ['4', '5', '6']:
+                    divisor = float(input("Ingrese el divisor: "))
+                    if divisor == 0:
+                        print("Error: El divisor no puede ser cero.")
+                        continue
+                else:
+                    divisor = None
+
+                if opcion == '4':
+                    resultados_division = division(numeros, divisor)
+                    print("Resultados de la división:", resultados_division)
+                elif opcion == '5':
+                    resultados_division_entera = division_entera(numeros, divisor)
+                    print("Resultados de la división entera:", resultados_division_entera)
+                elif opcion == '6':
+                    resultados_residuo = residuo(numeros, divisor)
+                    print("Resultados del residuo:", resultados_residuo)
+                elif opcion == '7':
+                    n = float(input("Ingrese el exponente para la potencia: "))
+                    resultados_potencia = potencia(numeros, n)
+                    print("Resultados de la potencia:", resultados_potencia)
+                elif opcion == '8':
+                    n = float(input("Ingrese el índice para la raíz: "))
+                    print("Resultado de la raíz:", raiz(numeros, n))
+                elif opcion == '9':
+                    print("Resultado del inverso:", inverso(numeros))
+                elif opcion == '10':
+                    resultados_factorial = factorial(numeros)
+                    print("Resultados del factorial:", resultados_factorial)
+                elif opcion == '11':
+                    print("Resultado del promedio:", promedio(numeros))
+                elif opcion == '12':
+                    print("Resultado de la mediana:", mediana(numeros))
+                elif opcion == '13':
+                    print("Resultado de la moda:", moda(numeros))
+            except ValueError:
+                print("Error: Ingrese números válidos.")
+        else:
+            print("Opción no válida. Seleccione una operación válida (0-13).")
+
+# Ejecutar la calculadora científica
+calculadora_cientifica()

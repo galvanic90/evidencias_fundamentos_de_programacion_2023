@@ -1,0 +1,100 @@
+#tomas alvarez usma
+#1193130489
+
+
+
+#Define información de cultivos.
+datos_cultivos = {
+    "Arroz": {
+        "Mantenimiento": "Lunes, Jueves 4:00 pm",
+        "Regado": "Martes, Viernes 5:00 pm",
+        "Abono": "Miércoles, Sábado 3:00 pm",
+        "Etapas": ["Siembra", "Crecimiento", "Cosecha"]
+    },
+    # Agrega más cultivos y su información aquí
+}
+
+# variables para la información contable.
+mano_de_obra = 0
+abono = 0
+agua = 0
+mantenimiento = 0
+valor_arroba_arroz = 0
+kilos_recolectados = 0
+
+# Función financieras.
+def calcular_metricas_financieras():
+    total_costos = mano_de_obra + abono + agua + mantenimiento
+    costos_promedio = total_costos / 4  # Hay cuatro categorías de costos (Mano de obra, Abono, Agua, Mantenimiento)
+    hay_ganancia = kilos_recolectados * valor_arroba_arroz > total_costos
+    ganancia = kilos_recolectados * valor_arroba_arroz - total_costos
+    ganancia_aumentada = kilos_recolectados * (valor_arroba_arroz * 1.37) - total_costos
+    ganancia_costos_reducidos = (kilos_recolectados * 0.63) * (valor_arroba_arroz * 1.37) - (total_costos * 0.95)
+    
+    # Imprime métricas financieras
+    print("Costos totales del cultivo:", total_costos)
+    print("Valor promedio de costos fijos:", costos_promedio)
+    print("¿Hubo ganancia?", "SI" if hay_ganancia else "NO")
+    print("Ganancia:", ganancia if hay_ganancia else 0)
+    print("Ganancia con aumento del 37% en el precio del arroz:", ganancia_aumentada)
+    print("Ganancia con reducción del 5% en costos y aumento del 37% en precio del arroz:", ganancia_costos_reducidos)
+
+# Menú principal
+while True:
+    print("MENÚ PRINCIPAL")
+    print("1- Horario de Gestión de Cultivo")
+    print("2- Etapas del Cultivo")
+    print("3- Información Contable")
+    print("4- Salir")
+    
+    opcion = input("Seleccione una opción: ")
+    
+    if opcion == "1":
+        # Submenú para seleccionar cultivo y mostrar su horario de gestión
+        print("CULTIVOS DISPONIBLES:")
+        for nombre_cultivo in datos_cultivos.keys():
+            print(f"- {nombre_cultivo}")
+        
+        cultivo_seleccionado = input("Seleccione un cultivo: ")
+        
+        if cultivo_seleccionado in datos_cultivos:
+            print(f"\nCultivo: {cultivo_seleccionado}")
+            print(f"Días y Horario de Mantenimiento: {datos_cultivos[cultivo_seleccionado]['Mantenimiento']}")
+            print(f"Días y Horario de Regado: {datos_cultivos[cultivo_seleccionado]['Regado']}")
+            print(f"Días y Horario de Abono: {datos_cultivos[cultivo_seleccionado]['Abono']}\n")
+        else:
+            print("Cultivo no encontrado.")
+    
+    elif opcion == "2":
+        # Submenú para seleccionar etapa de cultivo
+        print("ETAPAS DEL CULTIVO:")
+        for etapa in datos_cultivos["Arroz"]["Etapas"]:
+            print(f"- {etapa}")
+        
+        etapa_seleccionada = input("Seleccione una etapa: ")
+        
+        if etapa_seleccionada in datos_cultivos["Arroz"]["Etapas"]:
+            etapa_de_cultivo = etapa_seleccionada
+            print(f"Etapa de Cultivo seleccionada: {etapa_de_cultivo}")
+        else:
+            print("Etapa no válida.")
+    
+    elif opcion == "3":
+        # Submenú para ingresar información contable
+        mano_de_obra = float(input("Ingrese el costo de mano de obra: "))
+        abono = float(input("Ingrese el costo de abono: "))
+        agua = float(input("Ingrese el costo de agua: "))
+        mantenimiento = float(input("Ingrese el costo de mantenimiento: "))
+        valor_arroba_arroz = float(input("Ingrese el valor de la arroba de arroz: "))
+        kilos_recolectados = float(input("Ingrese la cantidad de kilos recolectados: "))
+        
+        # Calcula y muestra las finanzas
+        calcular_metricas_financieras()
+    
+    elif opcion == "4":
+        # Salir del programa
+        print("Saliendo de la aplicación.")
+        break
+    
+    else:
+        print("Opción no válida. Por favor, seleccione una opción válida.")

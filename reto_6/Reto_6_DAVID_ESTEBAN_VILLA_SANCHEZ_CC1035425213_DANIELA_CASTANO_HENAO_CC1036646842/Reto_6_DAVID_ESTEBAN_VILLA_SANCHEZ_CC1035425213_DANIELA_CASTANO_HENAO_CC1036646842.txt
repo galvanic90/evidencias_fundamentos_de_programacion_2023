@@ -1,0 +1,187 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[ ]:
+
+
+#Una empresa de software requiere del perfil de un profesional con experiencia en ciencia de datos. 
+#Se requiere realizar una labor de alistamiento de un entorno de código, con las siguientes librerías y paquetes:
+#Escriba un informe sobre cómo usaría estas librerías en la solución. Incluya las sentencias que utilizará 
+#como respuesta al requerimiento:
+
+        #•    Instalar numpy con referencia np.
+        #•    Instalar el paquete del toolbox de redes neuronales tensorflow, versión 2.7.0.
+        #•    Actualizar la librería matplotlib en su última versión.
+        #•    Seleccionar en la librería matplotlib el método figure.
+        #•    Mostrar todo el stack de librerías del entorno de ejecución utilizado.
+        
+
+
+# In[ ]:
+
+
+#get_ipython().system('conda create --name mi_entorno python=3.8')
+#get_ipython().system('conda activate mi_entorno')
+get_ipython().system('pip install --user numpy')
+
+
+# In[ ]:
+
+
+# Instalar numpy usando pip
+get_ipython().system('pip install numpy')
+
+
+# In[ ]:
+
+
+# Importar numpy con la referencia "np"
+import numpy as np
+
+
+# In[19]:
+
+
+#Instalar el paquete del toolbox de redes neuronales tensorflow, versión 2.7.0.
+#Se instala esta versión porque la 2.7 no la encuentra
+get_ipython().system('pip install tensorflow==2.13.0')
+import tensorflow as tf
+print("------------------------------------------")
+print(tf.__version__)
+get_ipython().system('pip show tensorflow')
+print("------------------------------------------")
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[27]:
+
+
+import matplotlib
+
+# Imprimir la versión de Matplotlib
+print("------------------------------------------")
+print("La versión de matplotlib es: ", matplotlib.__version__)
+print("------------------------------------------")
+
+
+# In[ ]:
+
+
+#Seleccionar en la librería matplotlib el método figure.
+  # Crear una nueva figura
+import matplotlib.pyplot as plt
+
+fig = plt.figure()
+
+  # Agregar un eje a la figura
+ax = fig.add_subplot(1, 1, 1)
+
+  # Graficar algunos datos en el eje
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 6, 8, 10]
+ax.plot(x, y)
+
+  # Mostrar la figura
+plt.show()
+print("------------------------------------------")
+
+
+
+# In[12]:
+
+
+#Mostrar todo el stack de librerías del entorno de ejecución utilizado.
+import pkg_resources
+for dist in pkg_resources.working_set:
+    print(dist.project_name, dist.version)
+
+
+# In[28]:
+
+
+get_ipython().system('pip install folium')
+
+
+# In[29]:
+
+
+import folium
+
+
+# In[30]:
+
+
+folium.Map(
+location = [40.4165,-3.10256],
+    zoom_start=16
+)
+
+
+# In[31]:
+
+
+import folium
+
+# Crear un mapa centrado en una ubicación específica
+mapa = folium.Map(location=[40.7128, -74.0060], zoom_start=10)  # Ubicación de Nueva York
+
+# Agregar marcadores para ubicaciones específicas
+folium.Marker([40.7128, -74.0060], tooltip='Nueva York').add_to(mapa)
+folium.Marker([34.0522, -118.2437], tooltip='Los Ángeles').add_to(mapa)
+folium.Marker([51.5074, -0.1278], tooltip='Londres').add_to(mapa)
+folium.Marker([48.8566, 2.3522], tooltip='París').add_to(mapa)
+
+# Guardar el mapa como un archivo HTML
+mapa.save('mapa.html')
+
+# Abrir el mapa en el navegador predeterminado
+import webbrowser
+webbrowser.open('mapa.html')
+
+
+# In[32]:
+
+
+#Geolocalizador coordenadas Colombia
+import folium
+
+
+mapa = folium.Map(location=[4.5709, -74.2973], zoom_start=16)  
+ciudades_colombia = [
+    {"nombre": "Bogotá", "coordenadas": [4.6097, -74.0817]},
+    {"nombre": "Medellín", "coordenadas": [6.2442, -75.5812]},
+    {"nombre": "Cali", "coordenadas": [3.4516, -76.5320]},
+    {"nombre": "Barranquilla", "coordenadas": [10.9632, -74.7970]},
+    {"nombre": "Cartagena", "coordenadas": [10.3910, -75.4794]}
+]
+
+for ciudad in ciudades_colombia:
+    folium.Marker(
+        location=ciudad["coordenadas"],
+        tooltip=ciudad["nombre"]
+    ).add_to(mapa)
+
+# Guardar el mapa como un archivo HTML
+mapa.save('mapa_colombia.html')
+
+# Abrir el mapa en el navegador predeterminado
+import webbrowser
+webbrowser.open('mapa_colombia.html')
+
+
+# In[ ]:
+
+
+
+

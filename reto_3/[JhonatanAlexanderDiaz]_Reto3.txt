@@ -1,0 +1,135 @@
+# Menú Principal
+def main():
+    cultivos = {
+        'Arroz': {
+            'mantenimiento': 'Lunes, Jueves 4:00 pm',
+            'regado': 'Lunes, Jueves 5:00 pm',
+            'abono': 'Martes, Viernes 6:00 pm'
+        }
+    }
+    
+    while True:
+        print("1. Horario de Gestión de Cultivo")
+        print("2. Etapas del Cultivo")
+        print("3. Información Contable")
+        print("4. Salir")
+        
+        opcion = input("Ingrese la opción deseada: ")
+        
+        if opcion == "1":
+            gestion_cultivo(cultivos)
+        elif opcion == "2":
+            etapa_cultivo()
+        elif opcion == "3":
+            informacion_contable()
+        elif opcion == "4":
+            print("Gracias por usar la aplicación.")
+            break
+
+# Impresión de Gestión de Cultivo
+def gestion_cultivo(cultivos):
+    while True:
+        print("\nCultivos disponibles:")
+        for idx, cultivo in enumerate(cultivos, start=1):
+            print(f"{idx}. {cultivo}")
+        
+        try:
+            eleccion = int(input("\nSeleccione el número del cultivo o 0 para regresar: "))
+            
+            if eleccion == 0:
+                return
+            
+            cultivo_seleccionado = list(cultivos.keys())[eleccion-1]
+            print(f"\nHorarios para {cultivo_seleccionado}:")
+            print(f"Mantenimiento: {cultivos[cultivo_seleccionado]['mantenimiento']}")
+            print(f"Regado: {cultivos[cultivo_seleccionado]['regado']}")
+            print(f"Abono: {cultivos[cultivo_seleccionado]['abono']}")
+            
+        except (ValueError, IndexError):
+            print("\nSelección inválida. Intente de nuevo.")
+
+# Impresión de Etapas del Cultivo
+def etapa_cultivo():
+    etapas = ["Siembra", "Crecimiento", "Cosecha"]
+    print("\nEtapas del Cultivo:")
+    for idx, etapa in enumerate(etapas, start=1):
+        print(f"{idx}. {etapa}")
+    
+    try:
+        eleccion = int(input("\nSeleccione la etapa deseada: "))
+        etapa_seleccionada = etapas[eleccion-1]
+        print(f"\nEtapa seleccionada: {etapa_seleccionada}")
+        
+    except (ValueError, IndexError):
+        print("\nSelección inválida. Intente de nuevo.")
+
+
+costos = {
+    'mano_de_obra': 0,
+    'abono': 0,
+    'agua': 0,
+    'mantenimiento': 0
+}
+
+def informacion_contable():
+    while True:
+        print("\n1. Costos")
+        print("2. Producción")
+        print("3. Informe Económico")
+        print("4. Regresar")
+        
+        eleccion = input("Seleccione una opción: ")
+        
+        if eleccion == "1":
+            gestion_costos()
+        elif eleccion == "2":
+            gestion_produccion()
+        elif eleccion == "3":
+            informe_economico()
+        elif eleccion == "4":
+            return
+
+def gestion_costos():
+    global costos
+    while True:
+        print("\n1. Mano de obra")
+        print("2. Abono")
+        print("3. Agua")
+        print("4. Mantenimiento")
+        print("5. Ir atrás")
+        
+        eleccion = input("Seleccione una opción: ")
+        
+        if eleccion == "1":
+            costos['mano_de_obra'] = float(input("Ingrese el costo de mano de obra: "))
+        elif eleccion == "2":
+            costos['abono'] = float(input("Ingrese el costo del abono: "))
+        elif eleccion == "3":
+            costos['agua'] = float(input("Ingrese el costo del agua: "))
+        elif eleccion == "4":
+            costos['mantenimiento'] = float(input("Ingrese el costo de mantenimiento: "))
+        elif eleccion == "5":
+            return
+
+def gestion_produccion():
+    global valor_arroba, kilos_recolectados
+    valor_arroba = float(input("\nIngrese el valor de la arroba de arroz (12.5 kilos): "))
+    kilos_recolectados = float(input("Ingrese la cantidad de kilos recolectados: "))
+
+def informe_economico():
+    total_costos = sum(costos.values())
+    valor_promedio_costos = total_costos / len(costos)
+    ganancia = kilos_recolectados * (valor_arroba / 12.5) - total_costos
+    
+    print("\nInforme Económico:")
+    print(f"Costos totales: {total_costos}")
+    print(f"Valor promedio de costos: {valor_promedio_costos}")
+    if ganancia > 0:
+        print(f"Ganancia: Sí, {ganancia}")
+    else:
+        print("Ganancia: No")
+
+if __name__ == "__main__":
+    print("¡Bienvenido a la aplicación de gestión de cultivos!")
+    main()
+

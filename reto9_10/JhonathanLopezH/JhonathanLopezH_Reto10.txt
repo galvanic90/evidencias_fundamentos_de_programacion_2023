@@ -1,0 +1,147 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Oct 13 18:34:18 2023
+
+@author: jhona
+"""
+
+import pandas as pd
+import os
+import numpy as np
+
+user = os.getlogin()
+root = "C:/Users/" + user + "/Downloads/"
+
+df = pd.read_csv( root + 'database.csv')
+
+# PUNTO 1
+
+print('\nCIUDADES CON EL MAYOR NÚMERO DE AGENCIAS\n')
+df_uno = df[['Agency Name','City']].copy()
+df_uno = df_uno.drop_duplicates()
+df_uno = df_uno.groupby('City', as_index=False)['Agency Name'].count()
+df_uno = df_uno.sort_values('Agency Name', ascending=False).reset_index(drop=True)
+print(df_uno.head())
+
+# PUNTO 2
+print('\nAGENCIAS TIPO SHERIFF\n')
+df_dos = df[['Agency Name','Agency Type']].copy()
+df_dos = df_dos[df_dos['Agency Type'] == 'Sheriff']
+df_dos = df_dos[['Agency Name']].drop_duplicates().reset_index(drop=True)
+print(df_dos)
+
+# PUNTO 3
+print('\nESTADOS MAS AFECTADOS POR MUJERES ASESINAS\n')
+df_tres = df[['State','Perpetrator Sex']].copy()
+df_tres = df_tres[df_tres['Perpetrator Sex'] == 'Female']
+df_tres = df_tres.groupby('State', as_index=False)['Perpetrator Sex'].count()
+df_tres = df_tres.sort_values('Perpetrator Sex', ascending=False).reset_index(drop=True)
+print(df_tres.head())
+
+#PUNTO 4
+print('\nESTADOS MAS AFECTADOS POR MUJERES ASESINAS\n')
+df_cuatro = df[['State','Perpetrator Sex']].copy()
+df_cuatro = df_cuatro[df_cuatro['Perpetrator Sex'] == 'Male']
+df_cuatro = df_cuatro.groupby('State', as_index=False)['Perpetrator Sex'].count()
+df_cuatro = df_cuatro.sort_values('Perpetrator Sex', ascending=False).reset_index(drop=True)
+print(df_cuatro.head())
+
+#PUNTO 5
+df_cinco = df[['Perpetrator Sex','Perpetrator Race']].copy()
+df_cinco = df_cinco[(df_cinco['Perpetrator Sex'] == 'Female') & (df_cinco['Perpetrator Race'] == 'Asian/Pacific Islander')]
+cinco = df_cinco['Perpetrator Sex'].count()
+print('\nEL NÚMERO DE CRIMENES HECHOS POR MUJERES DE RAZA ASIAN/PACIFIC ISALNDER ES ' + cinco.astype(str))
+
+# PUNTO 6
+df_seis = df[['Record ID','Perpetrator Race']].copy()
+df_seis = df_seis.groupby('Perpetrator Race', as_index=False)['Record ID'].count()
+df_seis = df_seis.sort_values('Record ID', ascending=False).reset_index(drop=True)
+print('\nLA RAZA MAS ASESINA ES ' + df_seis.loc[0,'Perpetrator Race'].upper() +' CON ' + df_seis.loc[0,'Record ID'].astype(str) + ' ASESINATOS')
+
+# PUNTO 7
+df_siete = df[['Perpetrator Ethnicity','Weapon']].copy()
+df_siete = df_siete[(df_siete['Perpetrator Ethnicity'] == 'Hispanic') & (df_siete['Weapon'] == 'Strangulation')]
+siete = df_siete['Perpetrator Ethnicity'].count()
+print('\nEL NÚMERO DE HISPANOS QUE HAN ASESINADO MEDIANTE ESTRANGULACIÓN ES ' + siete.astype(str))
+
+# PUNTO 8
+df_ocho = df[['Relationship','Weapon']].copy()
+df_ocho = df_ocho[df_ocho['Weapon'] == 'Shotgun']
+df_ocho = df_ocho.groupby('Relationship', as_index=False)['Weapon'].count()
+df_ocho = df_ocho.sort_values('Weapon', ascending=False).reset_index(drop=True)
+print('\nLA RELACIÓN QUE MAS ASESINA CON ESCOPETA ES ' + df_ocho.loc[0,'Relationship'].upper() +' CON ' + df_ocho.loc[0,'Weapon'].astype(str) + ' ASESINATOS')
+
+# PUNTO 9
+df_nueve = df[['Perpetrator Sex','Weapon']].copy()
+df_nueve = df_nueve[df_nueve['Weapon'] == 'Poison']
+df_nueve = df_nueve.groupby('Perpetrator Sex', as_index=False)['Weapon'].count()
+df_nueve = df_nueve.sort_values('Weapon', ascending=False).reset_index(drop=True)
+print('\nEL SEXO QUE MAS HA ASESINADO CON POISON ES ' + df_nueve.loc[0,'Perpetrator Sex'].upper() +' CON ' + df_nueve.loc[0,'Weapon'].astype(str) + ' ASESINATOS')
+
+# PUNTO 10
+df_diez = df[['Perpetrator Race','Record Source','Crime Solved']].copy()
+df_diez = df_diez[(df_diez['Perpetrator Race'] == 'Black') & (df_diez['Record Source'] == 'FBI') & (df_diez['Crime Solved'] == 'Yes')]
+diez = df_diez['Perpetrator Race'].count()
+print('\nEL FBI ATRAPO ' + diez.astype(str) + ' ASESINOS DE RAZA NEGRA')
+
+# PUNTO 11
+print('\nLAS VICTIMAS HISPANAS HAN SIDO ASESINADAS CON \n')
+df_once = df[['Victim Ethnicity','Weapon']].copy()
+df_once = df_once[df_once['Victim Ethnicity'] == 'Hispanic']
+df_once['TIPO'] = np.where((df_once['Weapon'] == 'Explosives') | (df_once['Weapon'] == 'Gun') | (df_once['Weapon'] == 'Handgun') | (df_once['Weapon'] == 'Rifle') | (df_once['Weapon'] == 'Shotgun'),
+                           'ARMA DE FUEGO', np.where((df_once['Weapon'] == 'Blunt Object') | (df_once['Weapon'] == 'Knife'),
+                                                     'ARMA BLANCA', 'OTROS'))
+df_once = df_once.rename(columns ={'Victim Ethnicity':'CANTIDAD'})
+df_once = df_once.groupby('TIPO', as_index=False)['CANTIDAD'].count()  
+print(df_once)
+
+# PUNTO 12
+df_doce = df[['Record ID','Perpetrator Age']].copy()
+df_doce = df_doce[df_doce['Perpetrator Age'] != ' ']
+df_doce[['Perpetrator Age']] = df_doce[['Perpetrator Age']].astype(int)
+df_doce = df_doce.sort_values('Perpetrator Age', ascending=False).reset_index(drop=True)
+print('\nEL ASESINO MAS VIEJO TIENE ' + df_doce.loc[0,'Perpetrator Age'].astype(str) +' AÑOS')
+
+# PUNTO 13
+df_trece = df[['Record ID','Perpetrator Age']].copy()
+df_trece = df_trece[(df_trece['Perpetrator Age'] != ' ')]
+df_trece[['Perpetrator Age']] = df_trece[['Perpetrator Age']].astype(int)
+df_trece = df_trece[df_trece['Perpetrator Age'] > 0]
+df_trece = df_trece.sort_values('Perpetrator Age', ascending=True).reset_index(drop=True)
+print('\nEL ASESINO MAS JOVEN TIENE ' + df_trece.loc[0,'Perpetrator Age'].astype(str) +' AÑOS')
+
+# PUNTO 14
+df_catorce = df[['Year']].copy()
+df_catorce[['Year']] = df_catorce[['Year']].astype(int)
+df_catorce = df_catorce[(df_catorce['Year'] > 1994) & (df_catorce['Year'] < 2001)]
+catorce = df_catorce['Year'].count()
+print('\nEL TOTAL DE HOMICIDIOS DESDE 1995 HASTA EL 2000 FUE ' + catorce.astype(str))
+
+# PUNTO 15
+df_quince = df[['Year','Perpetrator Sex','Perpetrator Race','Weapon']].copy()
+df_quince[['Year']] = df_quince[['Year']].astype(int)
+df_quince = df_quince[(df_quince['Year'] > 1994) & (df_quince['Year'] < 2001)]
+df_quince = df_quince[(df_quince['Perpetrator Sex'] == 'Male') & (df_quince['Perpetrator Race'] == 'Black') & (df_quince['Weapon'] == 'Suffocation')]
+quince = df_quince['Year'].count()
+print('\nEL TOTAL DE ASESINATOS PERPETRADOS POR HOMBRES DE RAZA NEGRA POR SOFOCACIÓN DESDE 1995 HASTA EL 2000 FUE ' + quince.astype(str))
+
+# PUNTO 16
+df_dieciseis = df[['Year','Perpetrator Race','Perpetrator Sex','State']].copy()
+df_dieciseis[['Year']] = df_dieciseis[['Year']].astype(int)
+df_dieciseis = df_dieciseis[(df_dieciseis['Year'] < 1980) & (df_dieciseis['Perpetrator Race'] == 'Black') & (df_dieciseis['Perpetrator Sex'] == 'Male') & (df_dieciseis['State'] == 'Alaska')]
+dieciseis = df_dieciseis['Year'].count()
+print('\nEL TOTAL DE ASESINATOS PERPETRADOS POR HOMBRES DE RAZA NEGRA DEL ESTADO DE ALASKA ANTES DE 1980 ' + dieciseis.astype(str))
+
+# PUNTO 17
+df_diecisiete = df[['Agency Type','City','Relationship','Weapon']].copy()
+df_diecisiete = df_diecisiete[(df_diecisiete['Agency Type'] == 'Municipal Police') & (df_diecisiete['City'] == 'New York') & (df_diecisiete['Relationship'] == 'Ex-Wife') & (df_diecisiete['Weapon'] == 'Strangulation')]
+diecisiete = df_diecisiete['City'].count()
+print('\nRESPUESTA PUNTO 17 ' + diecisiete.astype(str))
+
+# PUNTO 18
+df_dieciocho = df[['Year','State','Victim Ethnicity','Relationship','Weapon']].copy()
+df_dieciocho = df_dieciocho[(df_dieciocho['Year'] >= 1980) & (df_dieciocho['Year'] <= 1990)]
+df_dieciocho = df_dieciocho[(df_dieciocho['State'] == 'Illinois') & (df_dieciocho['Victim Ethnicity'] == 'Not Hispanic') & (df_dieciocho['Relationship'] == 'Friend') & (df_dieciocho['Weapon'] == 'Shotgun')]
+dieciocho = df_dieciocho['Year'].count()
+print('\nLOS HOMICIDIOS OCURRIDOS ENTRE 1980 Y 1990 EN ILLINOIS POR AMIGOS NO HISPANOS CON UNA ESCOPETA FUERON ' + dieciocho.astype(str) + '\n')
+print(df_dieciocho)

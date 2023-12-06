@@ -1,0 +1,301 @@
+# Importar librería para estadísticas 
+
+import statistics
+
+estudiantes = []
+
+#Función del Menú Principal
+
+def menu():
+print("MENÚ PRINCIPAL")
+print("1. Agregar")
+print("2. Buscar")
+print("3. Modificar")
+print("4. Cancelar materia")
+print("5. Resultados por estudiante")
+print("6. Informe de grupo")
+print("7. Salir")
+return input("Ingrese su opción: ")
+
+opcion = ""
+while True:
+opcion = menu()
+
+if opcion == "7":
+    break
+
+if opcion == "1":
+    agregar()
+elif opcion == "2":
+    buscar()
+elif opcion == "3":
+    modificar()
+elif opcion == "4":
+    cancelar_materia()
+elif opcion == "5":
+    resultados_por_estudiante()
+elif opcion == "6":
+    informe_de_grupo()
+
+print("-"*60)
+print("Gracias por usar la aplicación.")
+print("-"*60)
+
+# Función para agregar los datos de un estudiante
+
+def agregar():
+identificacion = int(input("Ingrese la identificación del estudiante: "))
+nombre = input("Ingrese el nombre del estudiante: ")
+correo = input("Ingrese el correo electrónico del estudiante: ")
+telefono = input("Ingrese el número de teléfono del estudiante: ")
+fecha_nacimiento = input("Ingrese la fecha de nacimiento del estudiante (dd/mm/aaaa): ")
+notas = []
+for i in range(4):
+    nota = float(input("Ingrese la nota #{}: ".format(i + 1)))
+    notas.append(nota)
+
+estudiante = {
+    "identificacion": identificacion,
+    "nombre": nombre,
+    "correo": correo,
+    "telefono": telefono,
+    "fecha_nacimiento": fecha_nacimiento,
+    "notas": notas,
+}
+
+estudiantes.append(estudiante)
+
+print("-"*60)
+print("Estudiante agregado correctamente.")
+print("-"*60)
+
+# Función para buscar a los estudiantes
+
+def buscar():
+identificacion = int(input("Ingrese la identificación del estudiante: "))
+
+estudiante = None
+for e in estudiantes:
+    if e["identificacion"] == identificacion:
+        estudiante = e
+        break
+
+if estudiante is None:
+    print("No se encontró el estudiante.")
+else:
+    print("-"*60)
+    print("Información del estudiante:")
+    print("Identificación:", estudiante["identificacion"])
+    print("Nombre:", estudiante["nombre"])
+    print("Correo electrónico:", estudiante["correo"])
+    print("Número de teléfono:", estudiante["telefono"])
+    print("Fecha de nacimiento:", estudiante["fecha_nacimiento"])
+    for i, nota in enumerate(estudiante["notas"], 1):
+        print("Nota #{}: {}".format(i, nota))
+    print("-"*60)
+
+# Función para modificar las notas
+
+def modificar():
+identificacion = int(input("Ingrese la identificación del estudiante: "))
+
+estudiante = None
+for e in estudiantes:
+    if e["identificacion"] == identificacion:
+        estudiante = e
+        break
+
+if estudiante is None:
+    print("No se encontró el estudiante.")
+    return
+
+# Itera sobre la lista de notas del estudiante
+notas = estudiante["notas"]
+for i in range(len(notas)):
+    nota = float(input("Ingrese la nueva nota #{} del estudiante: ".format(i + 1)))
+    notas[i] = nota
+
+estudiante["notas"] = notas
+
+
+print("-"*60)
+print("Estudiante modificado correctamente.")
+print("-"*60)
+
+# Función para cancelación de materia
+
+def cancelar_materia():
+identificacion = int(input("Ingrese la identificación del estudiante: "))
+
+estudiante = None
+for e in estudiantes:
+    if e["identificacion"] == identificacion:
+        estudiante = e
+        break
+
+if estudiante is None:
+    print("No se encontró el estudiante.")
+    return
+
+estudiantes.remove(estudiante)
+
+print("-"*60)
+print("Estudiante eliminado correctamente.")
+print("-"*60)
+
+# Función para mostrar los resultados por estudiante
+
+def resultados_por_estudiante():
+
+# Calcular la nota promedio del grupo
+nota_promedio = 0
+for e in estudiantes:
+    nota_final = 0
+    for nota in e["notas"]:
+        nota_final += nota
+    nota_final /= len(e["notas"])
+    nota_promedio += nota_final
+nota_promedio /= len(estudiantes)
+
+identificacion = int(input("Ingrese la identificación del estudiante: "))
+
+estudiante = None
+for e in estudiantes:
+    if e["identificacion"] == identificacion:
+        estudiante = e
+        break
+
+if estudiante is None:
+    print("No se encontró el estudiante.")
+    return
+
+# Calcular la nota final
+notas = estudiante["notas"]
+nota_final = statistics.mean(notas)
+
+# Informar si el estudiante estuvo por encima o por debajo de la media
+if nota_final >= nota_promedio:
+    sobre_promedio = True
+else:
+    sobre_promedio = False
+
+# Informar si el estudiante ganó o perdió el curso    
+if nota_final >= 3.0:
+    aprobado = True
+else:
+    aprobado = False
+
+# Calcular el percentil
+num_estudiantes = len(estudiantes)
+notas_ordenadas = sorted([e["notas"][0] for e in estudiantes], reverse=True)
+for e in estudiantes:
+    i = 0
+    for nota in notas_ordenadas:
+        if nota <= e["notas"][0]:
+            break
+        i += 1
+    e["percentil"] = i / num_estudiantes * 100
+        
+print("-"*60)
+print("RESULTADOS DEL ESTUDIANTE")
+print("Nombre:", estudiante["nombre"])
+print("Identificación:", estudiante["identificacion"])
+print("Nota final:", nota_final)
+print("Nota promedio del grupo:", nota_promedio)
+
+if sobre_promedio:
+    print("El estudiante está por encima de la media.")
+else:
+    print("El estudiante está por debajo de la media.")
+    
+if aprobado:
+    print("El estudiante aprobó el curso.")
+else:
+    print("El estudiante reprobó el curso.")
+    
+print("Percentil:", e["percentil"])
+print("-"*60)
+
+# Función para el informe del grupo
+
+def informe_de_grupo():
+
+# Calcular la nota promedio
+nota_promedio = 0
+for e in estudiantes:
+    nota_final = 0
+    for nota in e["notas"]:
+        nota_final += nota
+    nota_final /= len(e["notas"])
+    nota_promedio += nota_final
+nota_promedio /= len(estudiantes)
+
+# Calcular el percentil
+num_estudiantes = len(estudiantes)
+notas_ordenadas = sorted([e["notas"][0] for e in estudiantes], reverse=True)
+for e in estudiantes:
+    i = 0
+    for nota in notas_ordenadas:
+        if nota <= e["notas"][0]:
+            break
+        i += 1
+    e["percentil"] = i / num_estudiantes * 100
+
+# Calcular el número de estudiantes por encima, por debajo e iguales al promedio
+por_encima = 0
+por_debajo = 0
+iguales = 0
+for e in estudiantes:
+    if e["notas"][0] > nota_promedio:
+        por_encima += 1
+    elif e["notas"][0] < nota_promedio:
+        por_debajo += 1
+    else:
+        iguales += 1
+
+# Calcular el número de estudiantes ganadores y perdedores
+aprobado = 3.0
+ganadores = 0
+perdedores = 0
+for e in estudiantes:
+    if e["notas"][0] >= aprobado:
+        ganadores += 1
+    else:
+        perdedores += 1
+
+# Calcular el porcentaje de ganadores y perdedores
+porcentaje_ganadores = ganadores / len(estudiantes) * 100
+porcentaje_perdedores = perdedores / len(estudiantes) * 100
+
+# Calcular la distribución de estudiantes por percentil
+num_percentiles = 100
+num_estudiantes_por_percentil = [0] * num_percentiles
+for e in estudiantes:
+    i = int(e["percentil"])
+    num_estudiantes_por_percentil[i] += 1
+
+# Calcular la moda, la mediana y la desviación estándar
+moda = statistics.mode([e["notas"][0] for e in estudiantes])
+mediana = statistics.median([e["notas"][0] for e in estudiantes])
+desviacion_estandar = statistics.stdev([e["notas"][0] for e in estudiantes])
+
+# Imprimir los resultados
+print("-"*60)
+print("INFORME DE GRUPO")
+print("Nota promedio:", nota_promedio)
+print("Número de estudiantes por encima del promedio:", por_encima)
+print("Número de estudiantes por debajo del promedio:", por_debajo)
+print("Número de estudiantes iguales al promedio:", iguales)
+print("Número de estudiantes ganadores:", ganadores)
+print("Número de estudiantes perdedores:", perdedores)
+print("Porcentaje de ganadores:", porcentaje_ganadores)
+print("Porcentaje de perdedores:", porcentaje_perdedores)
+print("Distribución de estudiantes por percentil:")
+for i in range(num_percentiles):
+    print("Percentil:", i, " - Estudiantes:", num_estudiantes_por_percentil[i])
+print("Moda:", moda)
+print("Mediana:", mediana)
+print("Desviación estándar:", desviacion_estandar)
+print("-"*60)
+
+print(estudiantes)

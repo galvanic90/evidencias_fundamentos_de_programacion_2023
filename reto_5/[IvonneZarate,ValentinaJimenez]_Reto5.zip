@@ -1,0 +1,383 @@
+alumnos = {}
+prog_alumnos = True
+
+#Importamos las librerias de estadistica (para moda, mediana, desviacion) y Numpy (para percentiles) para utilizar mas adelante
+import statistics as st
+import numpy as np
+
+#Definimos las funciones necesarias para cada una de las opciones brindadas por el menu
+
+#Definimos la funcion de buscar a un alumno
+def buscar ():
+      cc= input("Ingrese la identificacion del usuario que esta buscando: ")
+      if cc in alumnos:
+        for key,value in alumnos[cc].items():
+          print(key , " : " , value)
+      else:
+        print("El alumno no esta matriculado en este curso \n")
+      return
+
+#Funcion para obtener la nota final del estudiante seleccionado y conocer si gano o perdio
+def prom_ind():
+  cc=input("Ingrese la identificacion del alumno que desea conocer la nota final: ")
+
+  if cc in alumnos:
+    notas=[alumnos[cc][clave] for clave in ["nota1","nota2","nota3","nota4"]]
+    prom=sum(notas)/len(notas)
+    #print(notas)
+    if prom < 3:
+      print("La nota final para el alumno: ",cc, "es: ", prom,"por lo tanto, PERDIO la materia\n")
+    else:
+      print("La nota final para el alumno: ",cc, "es: ", prom,"por lo tanto, GANO la materia\n")
+  else:
+    print("No existe alumno con esa identificacion en este curso")
+
+#Funcion para obtener las notas finales de todos los estudiantes
+def prom_ind2():
+  promedios={}
+  for cc,datos in alumnos.items():
+    notas=[datos[cc] for cc in ["nota1","nota2","nota3","nota4"]]
+    promedio=sum(notas)/len(notas)
+    promedios[cc]=promedio
+  for cc,promedio in promedios.items():
+    if promedio > 3:
+      print(f"La nota final del alumno: {cc} es: {promedio} esto quiere decir que GANO la materia\n")
+    else:
+      print(f"La nota final del alumno: {cc} es: {promedio} esto quiere decir que PERDIO la materia\n")
+
+#Funcion para obtener el promedio grupal
+def prom_gru():
+  notasgrup=[]
+  for notas in alumnos.values():
+    for cc,valor in notas.items():
+      if "nota" in cc:
+        notasgrup.append(valor)
+  global promgrup
+  promgrup=sum(notasgrup)/len(notasgrup)
+  print(f"El promedio de notas de todo el grupo es {promgrup}")
+  return promgrup
+
+#Funcion para consultar si la nota final de un alumno esta por encima, por debajo o igual al promedio grupal
+def pos_prom():
+  promgrup=prom_gru()
+  cc=input("Ingrese la identificacion del alumno, del cual desea conocer cual en su posicion respecto al promedio grupal: ")
+
+  if cc in alumnos:
+    notas=[alumnos[cc][clave] for clave in ["nota1","nota2","nota3","nota4"]]
+    prom=sum(notas)/len(notas)
+    #print(notas)
+    if prom < promgrup:
+      print("La nota final del alumno: ",cc, "es", prom, "quiere decir que esta por debajo del promedio grupal que fue:",promgrup)
+    elif prom == promgrup:
+      print("La nota final del alumno: ",cc, "es", prom, "quiere decir que esta en el promedio grupal que fue:",promgrup)
+    else:
+       print("La nota final del alumno: ",cc, "es", prom, "quiere decir que esta por encima del promedio grupal que fue:",promgrup)
+
+  else:
+    print("No existe alumno con esa identificacion en este curso")
+
+#Funcion para consultar si las notas finales de los alumnos estan por encima, por debajo o igual al promedio grupal.
+def pos_promgrup():
+  promgrup=prom_gru()
+  promedios={}
+  for cc,datos in alumnos.items():
+    notas=[datos[cc] for cc in ["nota1","nota2","nota3","nota4"]]
+    promedio=sum(notas)/len(notas)
+    promedios[cc]=promedio
+  for cc,promedio in promedios.items():
+    if promedio < promgrup:
+      print("La nota final del alumno: ",cc, "es", promedio, "quiere decir que esta por debajo del promedio grupal que fue:",promgrup)
+    elif promedio == promgrup:
+      print("La nota final del alumno: ",cc, "es", promedio, "quiere decir que esta en el promedio grupal que fue:",promgrup)
+    else:
+       print("La nota final del alumno: ",cc, "es", promedio, "quiere decir que esta por encima del promedio grupal que fue:",promgrup)
+
+
+
+#Funcion para Mostrar la cantidad de alumnos que ganaron y perdieron la materia, ademas los porcentajes de cada uno
+def cantidad_ganadores_perdedores():
+  ganadores = 0
+  promedios = {}
+  for cc,datos in alumnos.items():
+    notas=[datos[cc] for cc in ["nota1","nota2","nota3","nota4"]]
+    promedio=sum(notas)/len(notas)
+    promedios[cc] = promedio
+  for cc,promedio in promedios.items():
+    if promedio >= 3:
+      ganadores += 1 #ganadores = ganadores +1
+  perdedores = len(alumnos)-ganadores
+  print (f"La cantidad de ganadores es {ganadores}")
+  print (f"La cantidad de perdedores es {perdedores}")
+  total_estudiantes = ganadores + perdedores
+  porcentaje_ganadores = (ganadores / total_estudiantes) * 100
+  porcentaje_perdedores = (perdedores / total_estudiantes) * 100
+  print (f"El porcentaje de estudiantes que ganaron la materia fue {porcentaje_ganadores}")
+  print (f"El porcentaje de estudiantes que perdieron la materia fue {porcentaje_perdedores}")
+
+#Funcion para obtener los percentiles de los estudiantes
+def obtener_percentiles_alumnos():
+  percentiles_definidos = {25 : None, 50: None, 75: None, 90:None}
+  promedio_cada_estudiante = []
+  for clave, estudiante in alumnos.items():
+    notas = [estudiante[clave] for clave in estudiante if clave.startswith('nota')]
+    promedio_estudiante = np.average(notas)
+    promedio_cada_estudiante.append(promedio_estudiante)
+  
+  for percentil in percentiles_definidos:
+    percentiles_definidos[percentil] = np.percentile(promedio_cada_estudiante, percentil)
+  return percentiles_definidos
+  
+#Funcion para ver los percentiles de las notas de un alumno escogido
+def perc_ind():
+  percentiles_definidos = obtener_percentiles_alumnos()
+  cc=input("Ingrese la identificación del alumno del que desea conocer el percentil: ")
+  if cc in alumnos:
+    estud=alumnos[cc]
+    notas=[estud[dato] for dato in estud if dato.startswith("nota")]
+    promedio_estudiante = np.average(notas)
+    encontre_rango = False
+    for index, percentil in enumerate(percentiles_definidos.keys()):
+
+      if promedio_estudiante < percentiles_definidos[percentil]:
+        encontre_rango= True
+        if index == 0:
+          print (f"El estudiante se encuentra por debajo del percentil {percentil}")
+          break
+        else: 
+          print (f"El estudiante se encuentra entre el percentil {list(percentiles_definidos.keys())[index-1]} y {percentil}")
+          break
+    if not encontre_rango:
+      print (f"El estudiante se encuentra por encima del percentil {list(percentiles_definidos.keys())[len(percentiles_definidos)-1]}")
+
+#Funcion para los percentiles de todos los estudiantes
+def perc_grup():
+  percentiles_definidos = obtener_percentiles_alumnos()
+  distribucion_percentiles = {}
+  for clave, estudiante in alumnos.items():
+    notas = [estudiante[clave] for clave in estudiante if clave.startswith('nota')]
+    promedio_estudiante = np.average(notas)
+    encontre_rango = False
+    for index, percentil in enumerate(percentiles_definidos.keys()):
+
+      if promedio_estudiante < percentiles_definidos[percentil]:
+        encontre_rango= True
+        if index == 0:
+          if f"Menor a {percentil}" in distribucion_percentiles:
+            distribucion_percentiles[f"Menor a {percentil}"] += 1
+          else :
+             distribucion_percentiles[f"Menor a {percentil}"] =1
+          break
+        else: 
+          if f"Entre {list(percentiles_definidos.keys())[index-1]} y {percentil}" in distribucion_percentiles:
+            distribucion_percentiles[f"Entre {list(percentiles_definidos.keys())[index-1]} y {percentil}"] += 1
+          else :
+             distribucion_percentiles[f"Entre {list(percentiles_definidos.keys())[index-1]} y {percentil}"] =1
+
+          break
+    if not encontre_rango:
+      if f"Mayor a {list(percentiles_definidos.keys())[len(percentiles_definidos)-1]}" in distribucion_percentiles:
+            distribucion_percentiles[f"Mayor a {list(percentiles_definidos.keys())[len(percentiles_definidos)-1]}"] += 1
+      else :
+             distribucion_percentiles[f"Mayor a {list(percentiles_definidos.keys())[len(percentiles_definidos)-1]}"] =1
+  print (distribucion_percentiles)
+
+def datos_agrupacion():
+  notas_grupo = []
+  for clave, estudiante in alumnos.items():
+    notas_grupo.extend([estudiante[clave] for clave in estudiante if clave.startswith('nota')])
+  print (f"La moda de las notas individuales de todo el grupo es  {st.mode(notas_grupo)}")
+  print (f"La mediana de las notas individuales de todo el grupo es  {np.median(notas_grupo)}")
+  print (f"La desviacion estandar de las notas individuales de todo el grupo es  {np.std(notas_grupo)}")
+
+
+alumno_valen={"Nombre":"Valen","Apellido":"Jimenez","Correo":"valen@asd.cas","# Celular":"123","Fecha de nacimiento":"21/04/2021",
+        "nota1":5,"nota2":4,"nota3":4,"nota4":4.5}
+alumnos["1"]=alumno_valen
+
+alumno_ramon={"Nombre":"Ramon","Apellido":"Valdez","Correo":"ramon@asd.cas","# Celular":"123","Fecha de nacimiento":"21/04/2021",
+        "nota1":2,"nota2":1,"nota3":2.5,"nota4":4}
+alumnos["2"]=alumno_ramon
+
+alumno_ivonne={"Nombre":"Ivonne","Apellido":"Zarate","Correo":"ivonne@asd.cas","# Celular":"123","Fecha de nacimiento":"21/04/2021",
+        "nota1":4.3,"nota2":4.66,"nota3":5,"nota4":4.5}
+alumnos["3"]=alumno_ivonne
+
+alumno_jose={"Nombre":"Jose","Apellido":"Hirlario","Correo":"Jose@asd.cas","# Celular":"123","Fecha de nacimiento":"21/04/2021",
+        "nota1":3.5,"nota2":3.2,"nota3":5,"nota4":3.7}
+alumnos["4"]=alumno_jose
+alumno_alejandro = {
+    "Nombre": "Alejandro",
+    "Apellido": "Martínez",
+    "Correo": "alejandro@asd.cas",
+    "# Celular": "456",
+    "Fecha de nacimiento": "15/09/2000",
+    "nota1": 4,
+    "nota2": 4.5,
+    "nota3": 3.8,
+    "nota4": 4.2
+}
+
+alumnos["5"] = alumno_alejandro
+
+alumno_andrea = {
+    "Nombre": "Andrea",
+    "Apellido": "López",
+    "Correo": "andrea@asd.cas",
+    "# Celular": "789",
+    "Fecha de nacimiento": "03/12/1999",
+    "nota1": 3,
+    "nota2": 4.1,
+    "nota3": 1.4,
+    "nota4": 2.3
+}
+
+alumnos["6"] = alumno_andrea
+
+alumno_carlos = {
+    "Nombre": "Carlos",
+    "Apellido": "Rodríguez",
+    "Correo": "carlos@asd.cas",
+    "# Celular": "101",
+    "Fecha de nacimiento": "28/05/2001",
+    "nota1": 3.2,
+    "nota2": 3.8,
+    "nota3": 3.5,
+    "nota4": 3.7
+}
+
+alumnos["7"] = alumno_carlos
+
+alumno_daniela = {
+    "Nombre": "Daniela",
+    "Apellido": "Pérez",
+    "Correo": "daniela@asd.cas",
+    "# Celular": "202",
+    "Fecha de nacimiento": "10/08/2002",
+    "nota1": 1,
+    "nota2": 0,
+    "nota3": 0,
+    "nota4":2
+}
+
+alumnos["8"] = alumno_daniela
+
+alumno_esteban = {
+    "Nombre": "Esteban",
+    "Apellido": "García",
+    "Correo": "esteban@asd.cas",
+    "# Celular": "303",
+    "Fecha de nacimiento": "25/03/1998",
+    "nota1": 3.9,
+    "nota2": 3.6,
+    "nota3": 3.8,
+    "nota4": 3.5
+}
+
+alumnos["9"] = alumno_esteban
+
+#Definimos el menu principal
+while prog_alumnos == True:
+  menu = input("¿Que necesitas realizar?\n"
+  "1.Agregar nuevo alumno\n"
+  "2.Buscar un alumno\n"
+  "3.Eliminar un alumno\n"
+  "4.Modificar nota de un alumno\n"
+  "5.Ver datos del informe individual\n"
+  "6.Ver datos del informe grupal\n"
+  "7.Salir\n")
+
+#Ingresamos a la opcion para agregar nuevo alumno
+  if menu == "1":
+    cc=input("Ingrese el numero de cedula del alumno: ")
+    nombre=input("Ingrese el nombre del alumno: ")
+    apellido=input("Ingrese el apellido del alumno: ")
+    correo=input("Ingrese el correo institucional del alumno: ")
+    cel=input("Ingrese el numero de celular: ")
+    nacim=input("Ingrese su fecha de nacimiento: ")
+    nota1=float(input("Ingrese la Nota #1: "))
+    nota2=float(input("Ingrese la Nota #2: "))
+    nota3=float(input("Ingrese la Nota #3: "))
+    nota4=float(input("Ingrese la Nota #4: "))
+    alumno={"Nombre":nombre,"Apellido":apellido,"Correo":correo,"# Celular":cel,"Fecha de nacimiento":nacim,"nota1":nota1,"nota2":nota2,"nota3":nota3,"nota4":nota4}
+    alumnos[cc]=alumno
+    print (alumnos)
+
+#Ingresamos a la opcion de buscar un alumno
+  elif menu=="2":
+    buscar()
+#Ingresamos a la opcion cancelar materia a algun alumno
+  elif menu=="3":
+    buscar()
+    del(alumnos[cc])
+    print("El alumno identificado con cedula #: " +cc+ " ,cancelo el curso" )
+    print (alumnos)
+#Ingresamos a la opcion modificar una nota de un alumno en especifico
+  elif menu=="4":
+    buscar()
+    if cc in alumnos:
+      notas= input("¿Cual nota desea modificar?, para modificar la Nota #1, escriba: nota1, para la Nota #2, escriba nota2...\n")
+      if notas in alumnos[cc]:
+        nueva_nota= float(input("Ingrese el valor de la nueva nota: "))
+        alumnos[cc][notas]=nueva_nota
+        print("La " ,notas, "fue modificada con exito, por: ",nueva_nota)
+        print(alumnos)
+      else:
+          print("La clave para acceder a modificar la nota, no es valida")
+    else:
+      print("No existe un alumno con esa identificacion")
+
+#Ingresamos a la opcion de ver datos del informe individual (Promedio de un alumno, si gano o perdio, posicion frente al promedio y percentil)
+  elif menu=="5":
+#Creamos submenu para que se pudiera ver la informacion deseada del alumno seleccionado de una manera mas organizada
+    menu2=input("Que informacion desea ver?\n"
+    "1.Consultar nota definitiva de un alumno y si gano o perdio curso\n"
+    "2.Consultar promedio grupal\n"
+    "3.Consultar si estuvo por encima, debajo en la media grupal\n"
+    "4.Consultar en que percentil se encuentra\n")
+#Ingresamos a la opcion de conocer nota definitiva del alumno y si perdio o gano
+    if menu2=="1":
+      prom_ind()
+#Ingresamos a la opcion de conocer el promedio de todo el grupo
+    elif menu2=="2":
+      prom_gru()
+#Ingresamos a la opcion de conocer la posicion del estudiante seleccionado frente al promedio grupal de notas
+    elif menu2=="3":
+      prom_gru()
+      pos_prom()
+#Ingresamos a la opcion de conocer en que percentil se encuentra el alumno
+    elif menu2=="4":
+      perc_ind()
+
+#Ingresamos a la opcion de ver datos del informe grupal (notas de todos los estudiantes, si ganaron o perdieron, promedio grupal, etc)
+  elif menu=="6":
+#Creamos submenu para elegir y ver con mayor organizacion los datos del informe grupal
+    menu3=input("Que informacion desea ver?\n"
+    "1.Consultar nota definitiva de todos los alumnos y si gano o perdio curso\n"
+    "2.Consultar promedio grupal\n"
+    "3.Consultar los estudiantes que estan por encima, debajo o en la media grupal\n"
+    "4.Consultar cuantos estudiantes ganaron y perdieron el curso, al igual que sus porcentajes\n"
+    "5.Consultar la moda, mediana, desviacion estandar del grupo\n"
+    "6.Consultar en que percentil se encuentran los estudiantes \n")
+#Ingresamos a la opcion 1 del submenu para conocer la nota de todos los estudiantes y si ganaron o perdieron la materia
+    if menu3=="1":
+      prom_ind2()
+#Ingresamos a la opcion 2 donde veremos el promedio de notas grupal
+    elif menu3=="2":
+      prom_gru()
+#Ingresamos a la opcion 3 donde veremos si la nota final de cada estudiante esta por encima, por debajo o en el promedio de notas grupal
+    elif menu3=="3":
+      prom_gru()
+      pos_promgrup()
+#Ingresamos a la opcion 4 donde veremos cuantos estudiantes ganaron y perdieron, ademas de los respectivos porcentajes 
+    elif menu3=="4":
+      cantidad_ganadores_perdedores()
+#Ingresamos a la opcion 5 donde veremos la moda, mediana y desviacion estandar de las notas grupales
+    elif menu3=="5":
+      datos_agrupacion()
+#Ingresamos a la opcion 6 donde veremos la distribucion de los estudiantes en los percentiles
+    elif menu3=="6":
+      perc_grup()
+#Salimos del sistema
+  elif menu=="7":
+      print ("Gracias por usar nuestro super sofisticado sistema de informacion estudiantil v1.23 by: Valeivo ")
+      prog_alumnos = False

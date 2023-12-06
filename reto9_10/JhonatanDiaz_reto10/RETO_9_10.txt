@@ -1,0 +1,93 @@
+# 1. importar librerias
+
+
+import pandas as pd
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+
+# 2. importar el archivo
+
+df = pd.read_excel('/content/drive/MyDrive/COLABS_UDEA/Reto_9_10.xlsx')
+
+
+
+
+# PROCESAMIENTO DE LOS DATOS
+
+# 1. Listar las cinco primeras ciudades con el mayor número de agencias
+result_1 = df['City'].value_counts().head(5)
+
+# 2. De los tipos de agencia, determinar las de tipo Sheriff y mostrar el nombre
+result_2 = df[df['Agency Type'] == 'Sheriff']['Agency Name'].unique()
+
+# 3. Listar los estados más afectados por crímenes perpetrados por mujeres
+result_3 = df[df['Perpetrator Sex'] == 'Female']['State'].value_counts().head()
+
+# 4. Listar los estados más afectados por crímenes perpetrados por hombres
+result_4 = df[df['Perpetrator Sex'] == 'Male']['State'].value_counts().head()
+
+# 5. Determinar el número exacto del número de crímenes hechos por mujeres de raza Asian/Pacific Islander
+result_5 = len(df[(df['Perpetrator Sex'] == 'Female') & (df['Perpetrator Race'] == 'Asian/Pacific Islander')])
+
+# 6. Determinar la raza más criminal
+result_6 = df['Perpetrator Race'].value_counts().idxmax()
+
+# 7. Determinar el número exacto de hispanos que han asesinado mediante la estrangulación
+result_7 = len(df[(df['Perpetrator Ethnicity'] == 'Hispanic') & (df['Weapon'] == 'Strangulation')])
+
+# 8. Determinar el tipo de relación más peligrosa, el cual comete más homicidios con armas de tipo Shotgun=escopeta
+result_8 = df[df['Weapon'] == 'Shotgun']['Relationship'].value_counts().idxmax()
+
+# 9. Cuál es el sexo que más homicidios ha cometido con Veneno= Poison
+result_9 = df[df['Weapon'] == 'Poison']['Perpetrator Sex'].value_counts().idxmax()
+
+# 10. Cuántos asesinos de raza negra atrapó el FBI
+result_10 = len(df[df['Perpetrator Race'] == 'Black'])
+
+# 11. Cuántas víctimas de tipo hispanas han muerto y porque tipo de medio (arma blanca, arma de fuego, etc)
+result_11 = df[df['Victim Ethnicity'] == 'Hispanic']['Weapon'].value_counts()
+
+# 12. Cuál ha sido el asesino más viejo
+result_12 = df['Perpetrator Age'].max()
+
+# 13. Cuál ha sido el asesino más joven
+result_13 = df[df['Perpetrator Age'] > 0]['Perpetrator Age'].min()  # Asumiendo que la edad 0 no es válida
+
+# 14. Cuál es el total de homicidios desde el año 1995 hasta el año 2000
+result_14 = len(df[(df['Year'] >= 1995) & (df['Year'] <= 2000)])
+
+# 15. Cuál es el total de homicidios desde el año 1995 hasta el año 2000 perpetrado por hombres de raza negra por sofocación=Suffocation
+result_15 = len(df[(df['Year'] >= 1995) & (df['Year'] <= 2000) & (df['Perpetrator Race'] == 'Black') & (df['Weapon'] == 'Suffocation')])
+
+# 16. Determinar los homicidios anteriores a 1980 perpetrados por hombres del estado de Alaska de raza negra
+result_16 = len(df[(df['Year'] < 1980) & (df['State'] == 'Alaska') & (df['Perpetrator Race'] == 'Black')])
+
+# 17. Determinar los homicidios de la policía municipal de la ciudad de Nueva York del cual hayan sido por relaciones de tipo Ex-Wife, y además que su arma haya sido la estrangulacion=Strangulation.
+result_17 = len(df[(df['Agency Name'] == 'Municipal Police') & (df['City'] == 'New York') & (df['Relationship'] == 'Ex-Wife') & (df['Weapon'] == 'Strangulation')])
+
+# 18. Listar todos los homicidios que hayan ocurrido desde 1980 hasta 1970 en el estado de Illinois del cual el grupo étnico de la víctima no es hispano=Not Hispanic y la relación con el asesino fue de amigos=Friend y el arma utilizada fue una escopeta=Shotgun
+result_18 = df[(df['Year'].between(1970, 1980)) & (df['State'] == 'Illinois') & (df['Victim Ethnicity'] == 'Not Hispanic') & (df['Relationship'] == 'Friend') & (df['Weapon'] == 'Shotgun')]
+
+
+
+# Mostrar los resultados
+print('1:', result_1, '\n')
+print('2:', result_2, '\n')
+print('3:', result_3, '\n')
+print('4:', result_4, '\n')
+print('5:', result_5, '\n')
+print('6:', result_6, '\n')
+print('7:', result_7, '\n')
+print('8:', result_8, '\n')
+print('9:', result_9, '\n')
+print('10:', result_10, '\n')
+print('11:', result_11, '\n')
+print('12:', result_12, '\n')
+print('13:', result_13, '\n')
+print('14:', result_14, '\n')
+print('15:', result_15, '\n')
+print('16:', result_16, '\n')
+print('17:', result_17, '\n')
+print('18:', result_18, '\n')

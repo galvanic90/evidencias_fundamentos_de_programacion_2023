@@ -1,0 +1,37 @@
+#reto 7
+
+import numpy as np
+
+# Paso 1: Crear un objeto ndarray con números enteros entre 64 y 1024
+array_data = np.random.randint(64, 1025, size=1024, dtype=np.int64)
+
+# Paso 2: Redimensionar a una matriz cuadrada con 1024 observaciones
+array_2d = array_data.reshape((32, 32))
+
+# Paso 3: Crear una columna de datos aleatorios para nombres y cédulas
+np.random.seed(42)  # Establecer una semilla para reproducibilidad
+names = ['Andres', 'Maria', 'Manuel', 'Daniel', 'Sarah', 'Cristian', 'Violetta', 'Lucia', 'Jackson', 'Jose']
+random_names = np.random.choice(names, size=30, replace=True)
+
+# Crear números de cédulas aleatorios para cada nombre
+cedulas = np.random.randint(1000000000, 9999999999, size=30, dtype=np.int64)
+
+# Paso 4: Concatenar un nuevo vector con observaciones de nombres y cédulas
+data_concatenated = np.column_stack((random_names, cedulas))
+
+# Paso 5: Mostrar la posición del número más grande de las cédulas
+max_cedula_position = np.argmax(cedulas)
+max_cedula_value = cedulas[max_cedula_position]
+
+# Mostrar resultados
+print("Paso 1: Objeto ndarray con números enteros entre 64 y 1024:")
+print(array_data)
+
+print("\nPaso 2: Matriz bidimensional cuadrada con 1024 observaciones:")
+print(array_2d)
+
+print("\nPaso 3: Columna de datos aleatorios para nombres y cédulas:")
+print(data_concatenated)
+
+print("\nPaso 4: Posición del número más grande de las cédulas:")
+print(f"Posición: {max_cedula_position}, Valor: {max_cedula_value}")

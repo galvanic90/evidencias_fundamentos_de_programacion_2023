@@ -1,0 +1,124 @@
+#Menú de selección
+while True:
+    print("Menú Principal:")
+    print("1. Obtener información de cultivo")
+    print("2. Mostrar subetapas de cultivo")
+    print("3. Información contable")
+    print("4. Salir")
+    
+    opcion = int(input("Seleccione una opción: "))
+
+#Selección de cultivo    
+    if opcion == 1:
+        cultivo = int(input("Seleccione el cultivo:\n1. Cultivo de Arroz\n2. Cultivo de Zanahoria\n"))
+
+#Información de cultivo        
+        if cultivo == 1:
+            print('''
+Cultivo de arroz
+- Días y Horario de Mantenimiento: Lunes y Jueves 4:00 pm.
+- Días y Horario de Regado: Lunes y Jueves 8:00 am.
+- Días y Horario de Abono: Lunes y Viernes 10:00 pm.
+''')
+        elif cultivo == 2:
+            print('''
+Cultivo de zanahoria
+- Días y Horario de Mantenimiento: martes y Jueves 4:00 pm.
+- Días y Horario de Regado: martes y Jueves 8:00 am.
+- Días y Horario de Abono: martes y Viernes 10:00 pm.
+''')
+
+#Subetapas del cultivo
+    elif opcion == 2:
+        cultivo = int(input("Seleccione el cultivo:\n1. Cultivo de Arroz\n2. Cultivo de Zanahoria\n"))
+        if cultivo == 1:
+            print('''
+Cultivo de arroz
+Etapa 1 - Crecimiento vegetativo:
+Subetapas: Desarrollo de las plantas jóvenes, crecimiento de tallos y hojas.
+Tiempo: 30 a 50 días.
+Etapa 2 - Floración:
+Subetapas: Formación y apertura de las flores.
+Tiempo: 50 a 60 días.
+Etapa 3 - Maduración:
+Subetapas: Formación y llenado de granos, madurez de las plantas.
+Tiempo: 20 a 30 días.
+''')
+        elif cultivo == 2:
+            print('''
+Cultivo de zanahoria
+Etapa 1 - Crecimiento Vegetativo:
+Subetapas: Desarrollo de hojas y raíces, engrosamiento de la raíz.
+Tiempo: 60 a 100 días.
+Etapa 2 - Engrosamiento de la Raíz:
+Subetapas: Formación y crecimiento de la zanahoria.
+Tiempo: 60 a 100 días.
+Etapa 3 - Maduración:
+Subetapas: Madurez de la zanahoria, cambio de color y sabor.
+Tiempo: 70-110 días.
+''')
+
+#información contable    
+    elif opcion == 3:
+        print("Información contable")
+        # Obtener información de costos variables por mes
+        costos_variables = []
+        for mes in range(5):
+            medicamentos = float(input(f"Ingrese los gastos de medicamentos para el mes {mes+1}: "))
+            imprevistos = float(input(f"Ingrese los gastos de imprevistos para el mes {mes+1}: "))
+            costos_variables.append(medicamentos + imprevistos)
+
+        # Obtener información de costos fijos por mes
+        costos_mano_de_obra = 0
+        costos_abono = float(input("Ingrese el costo de abono por mes: "))
+        costos_agua = float(input("Ingrese el costo de agua por mes: "))
+        costos_mantenimiento = float(input("Ingrese el costo de mantenimiento por mes: "))
+        for mes in range(5):
+            costo_mano_de_obra = float(input(f"Ingrese el costo de mano de obra para el mes {mes+1}: "))
+            costos_mano_de_obra += costo_mano_de_obra
+
+        # Obtener información de producción
+        valor_arroba = float(input("Ingrese el valor de la arroba de arroz: "))
+        kilos_recolectados = float(input("Ingrese la cantidad de kilos recolectados: "))
+
+        # Cálculos
+        costos_totales_por_mes = [cv + costos_mano_de_obra + costos_abono + costos_agua + costos_mantenimiento for cv in costos_variables]
+        costos_fijos_promedio = (costos_abono + costos_agua + costos_mantenimiento) / 5
+        costos_variables_promedio = sum(costos_variables) / 5
+        gastos_totales_por_mes = [cv + costos_mano_de_obra + costos_abono + costos_agua + costos_mantenimiento for cv in costos_variables]
+        ganancia = (valor_arroba * kilos_recolectados) - sum(gastos_totales_por_mes)
+        precio_kilo_arroz_aumentado = valor_arroba * 1.37
+        ganancia_con_aumento = (precio_kilo_arroz_aumentado * kilos_recolectados) - sum(gastos_totales_por_mes)
+        costos_disminuidos = [(cv * 0.95) + costos_mano_de_obra + (costos_abono * 0.95) + (costos_agua * 0.95) + (costos_mantenimiento * 0.95) for cv in costos_variables]
+        produccion_disminuida = kilos_recolectados * 0.63
+        ganancia_con_disminucion = (valor_arroba * produccion_disminuida) - sum(costos_disminuidos)
+
+        # Informe económico
+        print("\nInforme Económico:")
+        print(f"a. Costos totales del cultivo por mes: {costos_totales_por_mes}")
+        print(f"b. Costos totales de mano de obra: {costos_mano_de_obra}")
+        meses_sin_gastos = [mes+1 for mes, cv in enumerate(costos_variables) if cv == 0]
+        print(f"c. Meses en los cuales no hubo gastos: {meses_sin_gastos}")
+        meses_gasto_menor_100000 = [mes+1 for mes, cv in enumerate(costos_variables) if cv < 100000]
+        print(f"d. Meses en los cuales el gasto fue menor a 100.000: {meses_gasto_menor_100000}")
+        meses_gasto_mayor_costo = [mes+1 for mes, ct in enumerate(costos_totales_por_mes) if ct > gastos_totales_por_mes[mes]]
+        print(f"e. Meses en los cuales el costo total del mes fue mayor al gasto total del mes: {meses_gasto_mayor_costo}")
+        print(f"f. Valor promedio de costos Fijos: {costos_fijos_promedio}")
+        print(f"   Valor promedio de costos Variables: {costos_variables_promedio}")
+        print(f"g. ¿Hubo ganancia? {'SI' if ganancia > 0 else 'NO'}")
+        print(f"   Ganancia obtenida: {ganancia}")
+        print(f"h. Si el precio del kilo de arroz se incrementa en un 37%, la ganancia sería: {ganancia_con_aumento}")
+        print(f"i. Si los costos y gastos se disminuyen en un 5% y la cantidad de arrobas producidas en un 63%, la ganancia sería: {ganancia_con_disminucion}")
+
+#opción de salida       
+    elif opcion == 4:
+        print("Cerrando la aplicación...")
+        break
+        
+    else:
+        print("Opción no válida, intentalo de nuevo")
+
+    print("\n")
+
+#Camilo Ruales
+#Gabriel Gómez

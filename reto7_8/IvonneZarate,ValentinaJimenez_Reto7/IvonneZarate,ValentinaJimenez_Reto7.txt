@@ -1,0 +1,73 @@
+### 1. Crear un objeto de tipo ndarray, con números enteros entre 64 hasta 1024
+
+# Se desarrollan dos formas distintas como solución al primer punto. 
+# La primera forma: 
+
+import numpy as np
+numeros = np.array(range(64,1025))
+ndarray = np.ndarray((1,len(numeros)), dtype=int, buffer=numeros)
+ndarray[0][50]
+
+# Para la segunda forma se usa la función de NumPy "arange"
+# Según la documentación, esta es la función: numpy.arange([start, ]stop, [step, ]dtype=None, *, like=None) 
+
+ndarray_2 = np.arange(64, 1025, 1, int)
+print (type(ndarray_2))
+print (ndarray_2.shape)
+ndarray_2[50]
+
+### 2. Igual número de filas como de columnas, con la finalidad de obtener una cuadrada.
+
+# Para encontrar los numeros divisibles de 961 (cantidad de números contenidos en el rango)
+
+for i in range(1,100):
+  if len(numeros) % i == 0:
+    print (i)
+
+# Redimensionar la  matriz
+
+matriz_cuadrada = ndarray_2.reshape((31, 31))
+matriz_cuadrada.shape
+
+### 3. Datos aleatorios
+
+import numpy as np
+import random
+
+#Se importa también la función "random"
+# Lista de nombres
+nombres = ['Andres', 'Maria', 'Manuel', 'Daniel', 'Sarah', 'Cristian', 'Violetta', 'Lucia', 'Jackson', 'Jose']
+
+# Generar 30 índices aleatorios para elegir nombres de la lista
+indices_nombres = np.random.randint(0, len(nombres), 30)
+
+# Generar números de cédula aleatorios
+cedulas = np.random.randint(1000000, 9999999, 30)
+
+print (indices_nombres)
+print (cedulas)
+
+
+### 4. Concatenar nombres y cédulas
+
+# Crear un np.ndarray con los datos
+data = []
+for i in range(len(indices_nombres)):
+  data.append([nombres[indices_nombres[i]], cedulas[i]])
+data = np.array(data)
+data
+
+### 5. Posición del número más grande de las cédulas 
+
+# Se puede dar solución también con 2 formas distintas usando la función "argmax" de Numpy: ndarray.argmax([axis, out, keepdims]) que según la documentación "Return indices of the maximum values along the given axis"
+# La primera forma:
+
+np.argmax(cedulas)
+
+# La segunda forma:
+# Se usa el Slicing Notation que se puede definir como una forma de extraer datos a partir de índices
+
+np.argmax(data[:,1])
+
+
+# Para el desarrollo del reto se usa la Documentación oficial de NumPy extraída de su página web: https://numpy.org/doc/stable/reference/arrays.ndarray.html

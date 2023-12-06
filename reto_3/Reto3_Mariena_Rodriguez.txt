@@ -1,0 +1,382 @@
+"""
+Reto Semana 3
+ 
+Presentado por:
+    Mariena Rodriguez Oquendo
+    CC. 1085331871
+    
+    
+################
+Preguntas de Interés por medio de pruebas que realice usted mismo, debatiéndolo con sus
+ compañeros o investigándolo:
+###############
+     
+- ¿Es posible que un condicional tenga más de una condición de acceso?
+Si, si es posible que un condicional tenga más de una condicción de acceso. Un ejemplo
+de esto es el uso de operadores lógicos como or o and. 
+
+- ¿Qué sucede si se hace uso de una sentencia break en un ciclo anidado 
+(Un ciclo que se encuentra dentro de otro ciclo)?
+Si se usa una sentencia break en un ciclo anidado se acaba el ciclo en el cual se 
+encuentra, pero no afecta o termina el ciclo global. 
+
+- ¿Dentro de los paréntesis de la función range() se pueden poner variables en vez 
+de datos directamente?
+No, dentro de una función range se ingresan solamente números enteros. 
+"""
+################ RETO 3 ################
+close = True
+
+menu_principal = '''  
+            1: Nombre del Cultivo
+            2: Horario de Gestión de Cultivo
+            3: Etapas del Cultivo
+            4: Información Contable
+            5: Salir del Menú
+'''
+                
+horarios_gestion = '''  
+            1: Horario de mantenimiento
+            2: Horario de riego
+            3: Horario de abono
+            4: Volver al menú principal
+'''
+etapas_cultivo = '''
+            1: Siembra
+            2: Crecimiento
+            3: Cosecha
+            4: Volver al menú principal
+'''
+
+info_contable = '''
+            1: Costos
+            2: Producción
+'''
+
+costos = '''
+            1: Mano de obra
+            2: Agua
+            3: Mantenimiento
+            4: Abono
+            5: Volver al menú anterior
+'''
+
+produccion = '''
+            1: Valor del cu
+            2: Cantidad cosechada
+            3: Volver al menú anterior
+'''               
+
+######### Horarios y Gestión de los Cultivos #########
+
+def horario_gestion_cultivos():
+  global horario_mantenimiento, horario_riego, horario_abono, regresar
+  print('Seleccione una de las opciones disponibles sobre el cultivo de la huerta escolar: ')
+  opcion_horario = input(horarios_gestion)
+  
+### Días y Horario de Mantenimiento ###
+  if opcion_horario == '1': 
+      while True:
+          horario_mantenimiento = input('''Ingrese el código del cultivo para conocer los días y horarios de mantenimiento: 
+                                        1: Zanahoria
+                                        2: Lechuga
+                                        3: Tomate
+                                        4: Cebolla                                        
+                                        ''')
+          if horario_mantenimiento in ['1', '2', '3', '4']:                
+              if horario_mantenimiento == '1':
+                  print('El cultivo de Zanahoria tiene mantenimiento los Lunes y Miércoles, 14:00.')
+                  break
+              elif horario_mantenimiento == '2':
+                  print('El cultivo de Lechuga tiene mantenimiento los Martes y Jueves, 09:00.')
+                  break
+              elif horario_mantenimiento == '3':
+                  print('El cultivo de Tomate tiene mantenimiento los Lunes, Miércoles y Viernes, 15:00.')
+                  break
+              elif horario_mantenimiento == '4':
+                  print('El cultivo de Cebolla tiene mantenimiento los Miércoles y Viernes, 12:00.')
+                  break
+          else:      
+              print('Error, el código no existe, ingrese un código válido. ')
+      horario_gestion_cultivos()
+      
+### Días y Horario de Riego ###   
+  elif opcion_horario == '2':
+      while True:            
+          horario_riego = input('''Ingrese el código del cultivo para conocer los días y horarios de riego: 
+                                1: Zanahoria
+                                2: Lechuga
+                                3: Tomate
+                                4: Cebolla 
+                                ''')
+          if horario_riego in ['1', '2', '3', '4']:                
+              if horario_riego == '1':
+                  print('El cultivo de Zanahoria se riega los Martes, Jueves y Viernes, 13:00.')
+                  break
+              elif horario_riego == '2':
+                  print('El cultivo de Lechuga se riega los Martes y Jueves, 13:30.')
+                  break
+              elif horario_riego == '3':
+                  print('El cultivo de Tomate se riega los Miércoles y Viernes, 14:00.')
+                  break
+              elif horario_riego == '4':
+                  print('El cultivo de Cebolla se riega los Miércoles y Viernes, 14:30.')
+                  break
+          else:
+              print('Error, el código no existe, ingrese un código válido. ')
+      horario_gestion_cultivos()
+        
+### Días y Horario de Abonar ###  
+  elif opcion_horario == '3':
+    while True:
+        horario_abono = input('''Ingrese el código del cultivo para conocer los días y horarios de abono: 
+                              1: Zanahoria
+                              2: Lechuga
+                              3: Tomate
+                              4: Cebolla 
+                              ''')
+        if horario_abono in ['1', '2', '3', '4']:                
+            if horario_abono == '1':
+               print('El cultivo de Zanahoria se abona los Martes, 08:00.')
+               break
+            elif horario_abono == '2':
+               print('El cultivo de Lechuga se abona los Jueves, 10:00.')
+               break
+            elif horario_abono == '3':
+               print('El cultivo de Tomate se abona los Martes, 08:00.')
+               break
+            elif horario_abono == '4':
+               print('El cultivo de Cebolla se abona los Jueves, 10:00.')
+               break
+        else:
+          print('Error, el código no existe, ingrese un código válido. ')
+    horario_gestion_cultivos()
+    
+### Regresar al menú principal ### 
+  elif opcion_horario == '4':
+    regresar = preg_regresar()
+  return regresar, horario_mantenimiento, horario_riego, horario_abono   
+
+####### Cultivos disponibles en la Huerta Escolar #########
+
+def info_cultivos():
+   
+    while True:
+        
+        cultivo = input('''  Ingrese el código del cultivo para consultar el nombre: 
+                    1
+                    2
+                    3
+                    4
+    ''')
+        if cultivo in ['1', '2', '3', '4']:    
+            if cultivo == '1':
+                print('El cultivo es de Zanahoria')
+                break
+            elif cultivo == '2':
+                print('El cultivo es de Lechuga')
+                break
+            elif cultivo == '3':
+                print('El cultivo es de Tomate')
+                break
+            elif cultivo == '4':
+                print('El cultivo es de Cebolla')
+                break
+        else:
+            print('Error, el código no existe, ingrese un código válido. ')
+    
+    regresar = preg_regresar()
+    return regresar, cultivo
+
+##### Etapas de los cultivos ########
+
+def etapas_cultivos():
+    global siembra, crecimiento, cosecha, regresar
+    print('Seleccione una de las opciones disponibles sobre el cultivo de la huerta escolar: ')
+    etapas_cultivos = input(etapas_cultivo)
+  
+### Etapa de Siembra ###
+    if etapas_cultivos == '1': 
+        while True:
+            siembra = input('''Ingrese el código del cultivo para conocer la etapa de siembra: 
+                                        1: Zanahoria
+                                        2: Lechuga
+                                        3: Tomate
+                                        4: Cebolla                                        
+                                        ''')
+            if siembra in ['1', '2', '3', '4']:                
+                if siembra == '1':
+                  print('El cultivo de Zanahoria tuvo su etapa de siembra hace 30 días')
+                  break
+                elif siembra == '2':
+                  print('El cultivo de Lechuga tuvo su etapa de siembra hace 25 días')
+                  break
+                elif siembra == '3':
+                  print('El cultivo de Tomate tuvo su etapa de siembra hace ')
+                  break
+                elif siembra == '4':
+                  print('El cultivo de Cebolla tuvo su etapa de siembra hace')
+                  break
+            else:      
+              print('Error, el código no existe, ingrese un código válido. ')
+        etapas_cultivos()
+      
+### Etapa de crecimiento ###   
+    elif etapas_cultivos == '2':
+        while True:            
+          crecimiento = input('''Ingrese el código del cultivo para conocer la etapa de crecimiento: 
+                                1: Zanahoria
+                                2: Lechuga
+                                3: Tomate
+                                4: Cebolla 
+                                    ''')
+          if crecimiento in ['1', '2', '3', '4']:                
+                      if crecimiento == '1':
+                          print('El cultivo de Zanahoria tiene una etapa de crecimiento entre los 20 a 80 días')
+                          break
+                      elif crecimiento == '2':
+                          print('El cultivo de Lechugas tiene una etapa de crecimiento entre los 8 a 60 días.')
+                          break
+                      elif crecimiento == '3':
+                          print('El cultivo de Tomate tiene una etapa de crecimiento entre los 15 a 90 días.')
+                          break
+                      elif crecimiento == '4':
+                          print('El cultivo de Cebolla tiene una etapa de crecimiento entre los 10 a 120 días.')
+                          break
+          else:
+              print('Error, el código no existe, ingrese un código válido. ')
+        etapas_cultivos()
+
+########## Informe Económico ###########
+def informe_economico():
+    while True:
+   
+        costos = input('''Ingrese la opción que desea conocer: 
+                       1: Costos Totales
+                       2: Promedio Costos Fijos
+                       3: Resultado Ganancia
+                       4: Aumento cultivo
+                       5: Disminución de costos y gastos
+                       ''')
+        
+        if costos == '1':
+        
+            costos_zanahoria = input('Ingrese los costos correspondientes al cultivo de zanahoria')
+            
+            costo_mano = input('Ingrese los costos de la mano de obra: $')
+            costo_agua = input('Ingrese los costos de agua: $')
+            costo_mantenimiento = input('Ingrese los costos de mantenimiento: $')
+            costo_abono = input('Ingrese los costos del abono: $')
+            costo_total1 = costo_mano + costo_agua + costo_mantenimiento + costo_abono
+            #####
+            costos_lechuga = input('Ingrese los costos correspondientes al cultivo de lechuga')
+            
+            costo_mano = input('Ingrese los costos de la mano de obra: $')
+            costo_agua = input('Ingrese los costos de agua: $')
+            costo_mantenimiento = input('Ingrese los costos de mantenimiento: $')
+            costo_abono = input('Ingrese los costos del abono: $')                        
+            costo_total2 = costo_mano + costo_agua + costo_mantenimiento + costo_abono
+            
+            #####
+            costos_tomate = input('Ingrese los costos correspondientes al cultivo de tomate')
+                        
+            costo_mano = input('Ingrese los costos de la mano de obra: $')
+            costo_agua = input('Ingrese los costos de agua: $')
+            costo_mantenimiento = input('Ingrese los costos de mantenimiento: $')
+            costo_abono = input('Ingrese los costos del abono: $')
+            
+            #####
+            costos_cebolla = input('Ingrese los costos correspondientes al cultivo de lechuga')
+ 
+            costo_total3 = costo_mano + costo_agua + costo_mantenimiento + costo_abono
+            costo_mano = input('Ingrese los costos de la mano de obra: $')
+            costo_agua = input('Ingrese los costos de agua: $')
+            costo_mantenimiento = input('Ingrese los costos de mantenimiento: $')
+            costo_abono = input('Ingrese los costos del abono: $')
+            costo_total4 = costo_mano + costo_agua + costo_mantenimiento + costo_abono
+
+            costo_total = costo_total1 + costo_total2 + costo_total3 + costo_total4
+            
+            print(f'El costo total para los cultivos son de $ {costo_total}')
+        
+        elif costos == '2':
+            prom_fijo = costo_total / 4
+            
+            print(f'El valor promedio de los costos fijos para los cultivos son de $ {prom_fijo}')
+        
+        elif costos == '3':
+           
+            precio_z = input('Ingrese el precio por kilo vendido de Zanahorias: $')
+            precio_l = input('Ingrese el precio por kilo vendido de Lechugas: $')
+            precio_t = input('Ingrese el precio por kilo vendido de Tomates: $')
+            precio_c = input('Ingrese el precio por kilo vendido de Cebollas: $')
+            
+            kilos_z = input('Ingrese los kilos vendidos de Zanahorias: ')
+            kilos_l = input('Ingrese los kilos vendidos de Lechugas: ')
+            kilos_t = input('Ingrese los kilos vendidos de Tomates: ')
+            kilos_c = input('Ingrese los kilos vendidos de Cebollas: ')
+            
+            ganancias_z = precio_z * kilos_z
+            ganancias_l = precio_l * kilos_l
+            ganancias_t = precio_t * kilos_t
+            ganancias_c = precio_c * kilos_c
+            
+            ganancias_totales = ganancias_z + ganancias_l + ganancias_t + ganancias_c
+            
+            if ganancias_totales > costo_total:
+                print(f'Se obtuvo una ganancia de $ {ganancias_totales - costo_total}')
+            else:
+                print('No hubo una ganancia entre los gastos y ventas de las verduras')
+
+        elif costos == '4':
+            precio = ((precio_z + precio_l + precio_t + precio_c) * 0.37) + (precio_z + precio_l + precio_t + precio_c)
+            
+            ganancias = precio * (kilos_z + kilos_l + kilos_t + kilos_c)
+            
+            print('La ganancia obtenida al subir en un 37% el precio de las verduras es de ${ganancias}')
+        
+        elif costos == '5':
+            costos_d = (costo_total * 0.05) + costo_total
+            
+            arrobas = ((kilos_z + kilos_l + kilos_t + kilos_c) * 0.63) + (kilos_z + kilos_l + kilos_t + kilos_c)
+            
+            print('La ganancia obtenida al disminuir los costos y la producción el precio de las verduras es de ${arrobas}')
+            
+    regresar = preg_regresar()
+    return regresar, costos
+
+
+########## Definición Opción de Retornar Menú Principal ###########
+def preg_regresar():
+    preg = input('¿Desea regresar al menú principal? ')
+    if preg == 'Si':
+        regresar = True
+    else:
+        regresar = False
+    return regresar
+
+######## Definición opciones del Menú Principal #########
+def m_menu_principal():
+  print('Bienvenido')
+  print('Seleccione una de las siguientes opciones: ')
+  opcion_menu_principal = input(menu_principal)
+  if opcion_menu_principal == '1':
+    regresar, cultivo = info_cultivos()
+    if regresar:
+      m_menu_principal()
+  elif opcion_menu_principal == '2':
+    regresar, horario_mantenimiento, horario_riego, horario_abono = horario_gestion_cultivos()
+    if regresar:
+      m_menu_principal()
+  elif opcion_menu_principal == '3':
+    regresar, siembra, crecimiento, cosecha = etapas_cultivos()
+    if regresar:
+      m_menu_principal()
+  elif opcion_menu_principal == '4':
+    pass
+  elif opcion_menu_principal == '5':
+      close = True
+  return opcion_menu_principal
+
+if __name__ == '__main__':
+    m_menu_principal()

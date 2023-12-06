@@ -1,0 +1,112 @@
+Reto de la semana 3
+
+Integrantes del equipo
+
+Yonatan Jose Torres Yepez
+Luis Alberto Giraldo Villegas
+
+
+
+# Mensaje de bienvenida
+print("Bienvenido a la aplicación de gestión de huerta escolar.")
+
+# Lista de cultivos
+cultivos = {
+    "Arroz": {
+        "Nombre": "Arroz",
+        "Días_mantenimiento": ["Lunes", "Jueves"],
+        "Horas_mantenimiento": ["4:00 PM"],
+        "Días_riego": ["Lunes", "Jueves"],
+        "Horas_riego": ["4:00 PM"],
+        "Días_abonado": ["Lunes", "Jueves"],
+        "Horas_abonado": ["4:00 PM"],
+        "Etapas_cultivo": ["Siembra", "Germinación", "Crecimiento", "Floración", "Maduración", "Cosecha"],
+    },
+    "Tomate": {
+        "Nombre": "Tomate",
+        "Días_mantenimiento": ["Miércoles", "Sábado"],
+        "Horas_mantenimiento": ["4:00 PM"],
+        "Días_riego": ["Miércoles", "Sábado"],
+        "Horas_riego": ["4:00 PM"],
+        "Días_abonado": ["Miércoles", "Sábado"],
+        "Horas_abonado": ["4:00 PM"],
+        "Etapas_cultivo": ["Siembra", "Germinación", "Crecimiento", "Floración", "Maduración", "Cosecha"],
+    },
+    "Lechuga": {
+        "Nombre": "Lechuga",
+        "Días_mantenimiento": ["Lunes", "Viernes"],
+        "Horas_mantenimiento": ["4:00 PM"],
+        "Días_riego": ["Lunes", "Viernes"],
+        "Horas_riego": ["4:00 PM"],
+        "Días_abonado": ["Lunes", "Viernes"],
+        "Horas_abonado": ["4:00 PM"],
+        "Etapas_cultivo": ["Siembra", "Germinación", "Crecimiento", "Floración", "Maduración", "Cosecha"],
+    },
+}
+
+def ordenar_etapas_cultivo(etapas_cultivo):
+    # Ordena las etapas del cultivo en orden alfabético
+    return sorted(etapas_cultivo)
+
+def imprimir_etapas_cultivo():
+    # Obtiene el cultivo seleccionado por el usuario
+    cultivo = input("Ingrese el cultivo: ")
+
+    # Verifica si el cultivo existe
+    if cultivo not in cultivos:
+        print(f"El cultivo {cultivo} no existe.")
+        return
+
+    # Obtiene las etapas del cultivo
+    etapas_cultivo = cultivos[cultivo]["Etapas_cultivo"]
+
+    # Ordena las etapas del cultivo
+    etapas_cultivo = ordenar_etapas_cultivo(etapas_cultivo)
+
+    # Imprime las etapas del cultivo
+    print("Etapas del cultivo:")
+    for etapa in etapas_cultivo:
+        print(f"* {etapa}")
+
+def obtener_informacion_contable():
+    # Imprime la información contable de la huerta escolar
+
+    # Costos
+    costos = {
+        "Mano de obra": 5400000,
+        "Abono": 900000,
+        "Agua": 150000,
+        "Mantenimiento": 1700000,
+    }
+
+    
+    # Imprime la información contable
+    print("Información contable de la huerta escolar:")
+    print("Costos:")
+    for costo, valor in costos.items():
+        print(f"* {costo}: {valor}")
+   
+# Bucle principal
+while True:
+    # Imprime el menú
+    print("Menú principal:")
+    for opcion, descripcion in opciones_menu.items():
+        print(f"({opcion}) {descripcion}")
+
+    # Obtiene la opción del usuario
+    opcion_usuario = input("Ingrese una opción: ")
+
+    # Ejecuta la acción correspondiente a la opción seleccionada
+    if opcion_usuario == "1":
+        # Gestión de cultivos
+        gestionar_cultivos()
+    elif opcion_usuario == "2":
+        # Etapas del cultivo
+        imprimir_etapas_cultivo()
+    elif opcion_usuario == "3":
+        # Información contable
+        obtener_informacion_contable()
+    elif opcion_usuario == "4":
+        # Salir
+        print("Gracias por usar la aplicación.")
+        break

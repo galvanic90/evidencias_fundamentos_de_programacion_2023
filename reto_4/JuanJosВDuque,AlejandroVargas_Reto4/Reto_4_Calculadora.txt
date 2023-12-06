@@ -1,0 +1,153 @@
+Reto 4-Calculadora
+
+https://colab.research.google.com/drive/1epZqsTUy4TmCSjYn9kramYt9O3Df3hUP?usp=sharing
+
+
+#Juan José Duque  CC 1001724543
+#Alejandro Vargas Ocampo 1088298091
+
+import math #Se importa la librería math, para operaciones matemáticas
+
+#A continuación se definen las opciones para el menú principal de la calculadora
+def menu_principal():
+    print("Calculadora Científica")
+    print("1. Operaciones Aritméticas")
+    print("2. Operaciones Aritméticas Extendidas")
+    print("3. Operaciones Trigonométricas")
+    print("4. Operaciones Estadísticas")
+    print("5. Salir")
+
+#Se definen a continuación las operaciones aritméticas: Suma, resta, multiplicación y división
+def operaciones_aritmeticas():
+    print("Operaciones Aritméticas Básicas")
+    a = float(input("Ingrese el primer número: "))
+    b = float(input("Ingrese el segundo número: "))
+    print("1. Suma")
+    print("2. Resta")
+    print("3. Multiplicación")
+    print("4. División")
+    opcion = int(input("Seleccione una operación (1,2,3 o 4): "))
+    if opcion == 1:
+        resultado = a + b  #Resultado de la suma
+    elif opcion == 2:
+        resultado = a - b  #Resultado de la resta
+    elif opcion == 3:
+        resultado = a * b  #Resultado de la multiplicación
+    elif opcion == 4:
+        if b != 0:
+            resultado = a / b  #Resultado de la división
+        else:
+            resultado = "Error: división por cero" #Se arroja un string en el caso de que se tenga división por cero
+    else:
+        resultado = "Opción inválida"   #Se arroja un string, si el usuario no ingresa una de las opciones correctas
+    print("Resultado:", resultado)
+
+#Se define a continuación las opoeraciones aritméticas extendidas
+def operaciones_aritmeticas_extendidas():
+    print("Operaciones Aritméticas Extendidas")
+    numero = float(input("Ingrese un número: "))
+    print("1. División Entera")
+    print("2. Residuo")
+    print("3. Exponenciación")
+    print("4. Raíz cuadrada")
+    print("5. Logaritmo en base 10")
+    print("6. Logaritmo natural")
+    print("7. Valor absoluto")
+    print("8. Inverso")
+    print("9. Factorial")
+    opcion = int(input("Seleccione una operación (1,2,3,4,5,6,7,8 o 9): "))
+    if opcion == 1:
+        divisor = float(input("Ingrese el divisor: "))
+        resultado = numero // divisor  #Resultado de la división entera
+    elif opcion == 2:
+        divisor = float(input("Ingrese el divisor: "))
+        resultado = numero % divisor  #Resultado del residuo de la división
+    elif opcion == 3:
+        exponente = float(input("Ingrese el exponente: "))
+        resultado = numero ** exponente #Resultado de la operación de exponenciación
+    elif opcion == 4:
+        resultado = math.sqrt(numero)  #Resultado de raiz cuadrada
+    elif opcion == 5:
+        resultado = math.log10(numero)  #Resultado de logaritmo en base 10
+    elif opcion == 6:
+        resultado = math.log(numero)   #Resultado de logaritmo neperiano
+    elif opcion == 7:
+        resultado = abs(numero)     #Resultado de valor absoluto
+    elif opcion == 8:
+        if numero != 0:
+            resultado = 1 / numero  #Resultado del inverso
+        else:
+            resultado = "Error: división por cero" #String de división por cero
+    elif opcion == 9:
+        resultado = math.factorial(int(numero))
+    else:
+        resultado = "Opción inválida"
+    print("Resultado:", resultado)
+
+#Operaciones trigonométricas
+def operaciones_trigonometricas():
+    print("Operaciones Trigonométricas")
+    angulo = float(input("Ingrese el ángulo en grados: "))
+    radianes = math.radians(angulo)
+    print("1. Seno")
+    print("2. Tangente")
+    opcion = int(input("Seleccione una operación (1/2): "))
+    if opcion == 1:
+        resultado = math.sin(radianes)
+    elif opcion == 2:
+        resultado = math.tan(radianes)
+    else:
+        resultado = "Opción inválida"
+    print("Resultado:", resultado)
+
+#Operaciones estadísticas 
+def operaciones_estadisticas():
+    print("Operaciones Estadísticas Básicas")
+    n = int(input("Ingrese la cantidad de números: "))
+    numeros = []
+    for i in range(n):
+        numero = float(input(f"Ingrese el número {i + 1}: "))
+        numeros.append(numero)
+    print("1. Promedio")
+    print("2. Mediana")
+    print("3. Moda")
+    opcion = int(input("Seleccione una operación (1/2/3): "))
+    if opcion == 1:
+        promedio = sum(numeros) / n
+        resultado = promedio
+    elif opcion == 2:
+        numeros.sort()
+        if n % 2 == 0:
+            mediana = (numeros[n // 2 - 1] + numeros[n // 2]) / 2
+        else:
+            mediana = numeros[n // 2]
+        resultado = mediana
+    elif opcion == 3:
+        from collections import Counter
+        conteo = Counter(numeros)
+        moda = [numero for numero, frecuencia in conteo.items() if frecuencia == max(conteo.values())]
+        resultado = moda
+    else:
+        resultado = "Opción inválida"
+    print("Resultado:", resultado)
+
+#A continuación se presenta un ciclo para mostrar el menú principal reiterativamente
+while True:
+    menu_principal()
+    opcion_principal = int(input("Seleccione una opción (1,2,3,4 o 5): "))
+    
+    if opcion_principal == 1:
+        operaciones_aritmeticas()
+    elif opcion_principal == 2:
+        operaciones_aritmeticas_extendidas()
+    elif opcion_principal == 3:
+        operaciones_trigonometricas()
+    elif opcion_principal == 4:
+        operaciones_estadisticas()
+    elif opcion_principal == 5:
+        print("Fin de la calculadora")
+        break
+    else:
+        print("Opción inválida. Por favor, seleccione una opción válida.")
+
+       

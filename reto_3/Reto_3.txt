@@ -1,0 +1,147 @@
+Reto 3
+
+Integrantes
+Bruno Aguirre Rico 			Cc 1037615516		brunoaguirre6@gmail.com
+Jhonathan Mauricio Lopez Herrera	Cc 1019107723 		jhonathanlopez64@gmail.com
+
+import pandas as pd
+
+cult = []
+mant = []
+regd = []
+abon = []
+siem = []
+crec = []
+csch = []
+
+base = {'CULT': cult,
+        'MANT': mant,
+        'REGA': regd,
+        'ABON': abon,
+        'SIEM': siem,
+        'CRECI': crec,
+        'CSCH': csch}
+
+df_data = pd.DataFrame(base)
+
+print('\nBIENVENIDO A CULTI_SOFT\n---------------------------------------------------------------------\nEl software de los agricultores\n')
+
+def programa():
+    
+    def data():
+        global df_data
+        ctr_cult = 1
+        print('\nDesea agregar un nuevo cultivo?\n\n0- NO\n1- SI')
+        ctr_cult_menu = int(input())
+        if ctr_cult_menu == 1:
+            while ctr_cult > 0:
+                nmbr_cult = str(input("Ingrese el nombre del cultivo = "))
+                dias_mant = str(input("Ingrese los días del mantenimineto = "))
+                dias_regd = str(input("Ingrese los días del regado = "))
+                dias_abon = str(input("Ingrese los días del abono = "))
+                dias_siem = input("Ingrese los días de la siembra = ")
+                dias_crec = input("Ingrese los días del crecimiento = ")
+                dias_csch = input("Ingrese los días de la cosecha = ")
+                nueva_row = {'CULT': nmbr_cult,
+                             'MANT': dias_mant,
+                             'REGA': dias_regd,
+                             'ABON': dias_abon,
+                             'SIEM': dias_siem,
+                             'CRECI': dias_crec,
+                             'CSCH': dias_csch}
+                df_data = df_data.append(nueva_row, ignore_index=True)
+                print('\nDesea agregar otro cultivo?\n\n0- NO\n1- SI')
+                ctr_cult = int(input())
+                if ctr_cult == 0:
+                    break
+                else:
+                    ctr_cult += 1
+                    
+    def dias_hor():
+        print('\nSeleccione una de estas opciones\n')
+        print(df_data[['CULT']])
+        ctr_dias_hor = int(input())
+        print('\nMANTENIMIENTO = ' + df_data.loc[ctr_dias_hor,'MANT'])
+        print('REGADO = ' + df_data.loc[ctr_dias_hor,'REGA'])
+        print('ABONO = ' + df_data.loc[ctr_dias_hor,'ABON'])
+        
+    def etapas():
+        print('\nSeleccione una de estas opciones\n')
+        print(df_data[['CULT']])
+        ctr_etapas = int(input())
+        print('\n' + df_data.loc[ctr_etapas,'SIEM'] + ' DIAS DE SIEMBRA')
+        print(df_data.loc[ctr_etapas,'CRECI'] + ' DIAS DE CRECIMIENTO')
+        print(df_data.loc[ctr_etapas,'CSCH'] + ' DIAS DE COSECHA')
+        
+    def cont():
+        global ctr_cont
+        print('\n')
+        print(df_data[['CULT']])
+        print('\nDigite el nombre del cultivo')
+        ctr_cont = str(input()).upper()
+        while True:
+            print('\nSeleccione una de estas opciones\n\nA- COSTOS\nB- PRODUCCION\nC- VOVER')
+            menu_dos = str(input()).upper()
+            if menu_dos =='A':
+                costos()
+            elif menu_dos == 'B':
+                produccion()
+            elif menu_dos == 'C':
+                break
+            else:
+                print("\nIngrese opción valida")
+                
+    def costos():
+        global tota
+        man_obr = float(input('Ingrese el costo de la mano de obra = '))
+        agua = float(input('Ingrese el costo del agua = '))
+        mant_cst = float(input('Ingrese el costo del mantenimiento = '))
+        abon = float(input('Ingrese el costo del abono = '))
+        tota =  man_obr + agua + mant_cst + abon
+        prom = tota/4
+        print('\nEl costo total del cultivo de ' + ctr_cont + ' es = '+ str((tota)))
+        print('El costo promedio de los CF del cultivo ' + ctr_cont + ' es = '+ str(prom))
+    
+    def produccion():
+        valor = float(input('Ingrese el valor de ' + ctr_cont + ' en el mercado = '))
+        cant_csc = float(input('Ingrese la cantida de ' + ctr_cont + ' recolectada = '))
+        if ((cant_csc * valor) - tota) > 0:
+            var = ((cant_csc * valor) - tota)
+            print ('Si hubo ganacia de = ' + str(var)) 
+        else:
+            print ('No hubo ganacia')
+        print('\n')
+        print('Si el valor del cultivo aumenta en 37%')
+        valor_2 = valor * 1.37
+        if ((cant_csc * valor_2) - tota) > 0:
+            var_2 =((cant_csc * valor_2) - tota)
+            print ('Si hay ganacia de = ' + str(var_2)) 
+        else:
+            print ('No hay ganacia')
+        print('\n')
+        print('Si los costos disminuyen un 5% y la producción en un 63%')
+        tota_2 = tota * 0.95
+        cant_csc_2 = cant_csc * 0.37
+        if ((cant_csc_2 * valor) - tota_2) > 0:
+            var_3 = ((cant_csc_2 * valor) - tota_2)
+            print ('Si hay ganacia de = '  + str(var_3))
+        else:
+            print ('No hay ganacia')            
+                        
+    while True:
+        print('\nSeleccione una de estas opciones\n\n1- DATOS DEL CULTIVO\n2- HORARIO Y GESTION DEL CULTIVO\n3- ETAPAS DEL CULTIVO\n4- INFORMACION CONTABLE\n5- SALIR')
+        menu_uno = str(input())
+        if menu_uno =='1':
+            data()
+        elif menu_uno == '2':
+            dias_hor()
+        elif menu_uno == '3':
+            etapas()
+        elif menu_uno == '4':
+            cont()
+        elif menu_uno == '5':
+            break
+        else:
+            print("\nIngrese opción valida")
+            
+programa()

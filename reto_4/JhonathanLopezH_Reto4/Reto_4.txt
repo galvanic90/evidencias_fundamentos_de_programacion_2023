@@ -1,0 +1,256 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Sep 21 19:17:59 2023
+
+@author: jhona
+"""
+
+import math
+import pandas as pd
+resul = 0
+
+est = []
+
+vector = {'DATA': est}
+df_data = pd.DataFrame(vector)
+
+print('\nCALCULADORA\n---------------------------------------------------------------------')
+
+def calculadora():
+    # global resul
+
+    def oper_art_bas():
+        global resul
+        num = float(input("Numero = "))
+        while True:
+            print('\nSeleccione una de estas opciones\n\n + \n - \n * \n / \n 0 - SALIR')
+            menu_dos = str(input())
+            if menu_dos == '+':
+                num_2 = float(input("Numero = "))
+                if resul == 0:
+                    resul = num + num_2
+                    print('\n', num, ' + ', num_2, ' =')
+                    print('', resul)
+                else:
+                    print('\n', resul, ' + ', num_2, ' =')
+                    resul = resul + num_2
+                    print('', resul)        
+            elif menu_dos == '-':
+                num_2 = float(input("Numero = "))
+                if resul == 0:
+                    resul = num - num_2
+                    print('\n', num, ' - ', num_2, ' =')
+                    print('', resul)
+                else:
+                    print('\n', resul, ' - ', num_2, ' =')
+                    resul = resul - num_2
+                    print('', resul)
+            elif menu_dos == '*':
+                num_2 = float(input("Numero = "))
+                if resul == 0:
+                    resul = num * num_2
+                    print('\n', num, ' * ', num_2, ' =')
+                    print('', resul)
+                else:
+                    print('\n', resul, ' * ', num_2, ' =')
+                    resul = resul * num_2
+                    print('', resul)
+            elif menu_dos == '/':
+                num_2 = float(input("Numero = "))
+                if resul == 0:
+                    resul = num / num_2
+                    print('\n', num, ' / ', num_2, ' =')
+                    print('', resul)
+                else:
+                    print('\n', resul, ' / ', num_2, ' =')
+                    resul = resul / num_2
+                    print('', resul)
+            elif menu_dos == '0':
+                num = 0
+                num_2 = 0
+                resul = 0
+                break
+            else:
+                print("\nIngrese opción valida")
+    
+    def oper_art_ext():
+        global resul
+        num = float(input("Numero = "))
+        while True:
+            print('\nSeleccione una de estas opciones\n\n // \n % \n ** \n √ \n log \n logx \n abs \n ^-1 \n ! \n 0 - SALIR')
+            menu_dos = str(input())
+            if menu_dos == '//':
+                num_2 = float(input("Numero = "))
+                if resul == 0:
+                    resul = num // num_2
+                    print('\n', num, ' // ', num_2, ' =')
+                    print('', resul)
+                else:
+                    print('\n', resul, ' // ', num_2, ' =')
+                    resul = resul // num_2
+                    print('', resul)
+            elif menu_dos == '%':
+                num_2 = float(input("Numero = "))
+                if resul == 0:
+                    resul = num % num_2
+                    print('\n', num, ' % ', num_2, ' =')
+                    print('', resul)
+                else:
+                    print('\n', resul, ' % ', num_2, ' =')
+                    resul = resul % num_2
+                    print('', resul)
+            elif menu_dos == '**':
+                num_2 = float(input("Numero = "))
+                if resul == 0:
+                    resul = num ** num_2
+                    print('\n', num, ' ^ ', num_2, ' =')
+                    print('', resul)
+                else:
+                    print('\n', resul, ' ^ ', num_2, ' =')
+                    resul = resul ** num_2
+                    print('', resul)        
+            elif menu_dos == '√':
+                num_2 = float(input("Numero = "))
+                if resul == 0:
+                    resul = num ** (1 / num_2)
+                    print('\n', num_2, ' √ ', num, ' =')
+                    print('', resul)
+                else:
+                    print('\n', num_2, ' √ ', resul, ' =')
+                    resul = resul ** (1 / num_2)
+                    print('', resul)
+            elif menu_dos == 'log':
+                if resul == 0:
+                    resul = math.log10(num)
+                    print('\nlog(', num, ') =')
+                    print('', resul)
+                else:
+                    print('\nlog(', resul, ') =')
+                    resul = math.log10(resul)
+                    print('', resul)
+            elif menu_dos == 'logx':
+                num_2 = float(input("Base = "))
+                if resul == 0:
+                    resul = math.log(num, num_2)
+                    print('\nlog(', num, ') base ', num_2, ' =')
+                    print(resul)
+                else:
+                    print('\nlog(', resul, ') base ', num_2, ' =')
+                    resul = math.log(resul, num_2)
+                    print(resul)
+            elif menu_dos == 'abs':
+                if resul == 0:
+                    resul = math.fabs(num)
+                    print('\nabs(', num, ') =')
+                    print('', resul)
+                else:
+                    print('\nabs(', resul, ') =')
+                    resul = math.fabs(resul)
+                    print('', resul)
+            elif menu_dos == '^-1':
+                if resul == 0:
+                    resul = num ** -1
+                    print('\n1/', num, ' =')
+                    print('', resul)
+                else:
+                    print('\n1/', resul, ' =')
+                    resul = resul ** -1
+                    print('', resul)
+            elif menu_dos == '!':
+                if resul == 0:
+                    resul = math.factorial(num)
+                    print('\n', num, '! =')
+                    print('', resul)
+                else:
+                    print('\n', resul, '! =')
+                    resul = math.factorial(resul)
+                    print('', resul)
+            elif menu_dos == '0':
+                num = 0
+                num_2 = 0
+                resul = 0
+                break
+            else:
+                print("\nIngrese opción valida")
+            
+    def oper_trigo():
+        global resul
+        while True:
+            print('\nSeleccione una de estas opciones\n\n1- SIN\n2- COS\n3- TAN\n4- SALIR')
+            menu_dos = str(input())
+            if menu_dos == '1':
+                num = float(input("Numero = "))                
+                resul= math.sin(math.radians(num))
+                print('\n Sin(', num, ') =')
+                print('', resul)
+            elif menu_dos == '2':
+                num = float(input("Numero = "))                
+                resul = math.cos(math.radians(num))
+                print('\n Cos(', num, ') =')
+                print('', resul)
+            elif menu_dos == '3':
+                num = float(input("Numero = "))                
+                resul == math.tan(math.radians(num))
+                print('\n Tan(', num, ') =')
+                print('', resul)
+            elif menu_dos == '4':
+                num = 0
+                resul = 0
+                break
+            else:
+                print("\nIngrese opción valida")
+    
+    def oper_est_bas():
+        global df_data
+        ctr_num = 1
+        print('\nDesea ingresar un nuevo numero?\n\n0- NO\n1- SI')
+        ctr_num_menu = int(input())
+        if ctr_num_menu == 1:
+            while ctr_num > 0:
+                est_data = float(input("Numero = "))
+                nueva_row = {'DATA': est_data}
+                df_data = df_data.append(nueva_row, ignore_index=True)
+                print('\nDesea ingresar un nuevo numero?\n\n0- NO\n1- SI')
+                ctr_num = int(input())
+                if ctr_num == 0:
+                    while True:    
+                        print('Seleccione una de estas opciones\n\n1- PROMEDIO\n2- MEDIANA\n3- MODA\n4- SALIR')
+                        menu_est = str(input())
+                        if menu_est == '1':
+                            print(df_data[['DATA']])
+                            print('\nPROMEDIO = ', df_data['DATA'].mean())
+                        elif menu_est == '2':
+                            print(df_data[['DATA']])
+                            print('\nMEDIANA = ', df_data['DATA'].median())
+                        elif menu_est == '3':
+                            print(df_data[['DATA']])
+                            print('\nMODA = ', df_data['DATA'].mode())
+                        elif menu_est == '4':
+                            break
+                        else:
+                            print("\nIngrese opción valida")
+                else:
+                    ctr_num += 1
+        elif ctr_num_menu == 0:
+            print("\nPara hacer uso de está opción es necesario tener datos")
+            oper_est_bas()
+        else:
+            print("\nIngrese opción valida")
+
+    while True:
+        print('Seleccione una de estas opciones\n\n1- OPERACIONES ARITMETICAS BASICAS\n2- OPERACIONES ARITMETICAS EXTENDIDAS\n3- OPERACIONES TRIGONOMETRICAS\n4- OPERACIONES ESTADISTICAS BASICAS\n5- SALIR')
+        menu_uno = str(input())
+        if menu_uno == '1':
+            oper_art_bas()
+        elif menu_uno == '2':
+            oper_art_ext()
+        elif menu_uno == '3':
+            oper_trigo()
+        elif menu_uno == '4':
+            oper_est_bas()
+        elif menu_uno == '5':
+            break
+        else:
+            print("\nIngrese opción valida")
+            
+calculadora()

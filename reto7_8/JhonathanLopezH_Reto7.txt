@@ -1,0 +1,38 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Oct  7 15:53:02 2023
+
+@author: jhona
+"""
+
+import numpy as np
+
+objeto = np.arange(64,1025,1)
+objeto = objeto.reshape(31,31)
+
+lista = ['Andres','Maria','Manuel','Daniel','Sarah','Cristian','Violetta','Lucia','Jackson','Jose']
+
+columna=[]
+
+for i in range(0,31,1):
+    nombre = np.random.choice(lista)
+    columna.append(nombre)
+    
+cedula=[]
+
+for i in range(0,31,1):
+    cc = np.random.randint(1000000,2000000)
+    cedula.append(cc)
+    
+data2 = np.array(columna)
+data3 = np.array(cedula)
+
+data = np.ma.concatenate(([data2], [data3]), axis=0)
+
+pos = data3.argmax()
+
+print('\nLa cedula mas alta se encuentra en la poscicion : ' + pos.astype(str))
+
+val = data3[data3.argmax()]
+
+print('\nSu valor es : ' + val.astype(str))

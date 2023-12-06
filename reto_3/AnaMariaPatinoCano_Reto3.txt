@@ -1,0 +1,165 @@
+#Estudiante: Ana María Patiño Cano
+#Nota: Solo logré realizar una parte del punto 2 pues se me dificultó desarrollarlo
+
+
+#Punto 1
+#Se indica mensaje de introdución a la huerta escolar
+#Se muestra menú principal
+#El menú debe ser con bucle y se retorna con opción "4. salir"
+#Se muestran submenús para Horario de gestión, etapas del cultivo, información contable y salir
+
+#Punto 2
+#información para cultivo de arroz
+#Se deben ingresar costos fijos (mano de obra, abono, agua y mantenimiento) 
+#Se deben ingresar el valor de la arroba (12.5kilos) de arroz y la cantidad de kilos recolectados
+#Es necesaria la definición de las variables mensuales
+
+
+#Funciones para la información contable:
+def info_contable():
+    meses = int(input("Indique la duración en meses del cultivo de arroz:"))
+    meses = (meses + 1)
+    def entrada(valor_entrada):
+      valor_entrada = valor_entrada
+      if (valor_entrada==""):
+        valor_entrada = float(0)
+      else:
+        valor_entrada = float(valor_entrada)
+      return valor_entrada
+
+    def ingreso_costos(mes):
+      obra = input(f"Ingrese los costos de mano de obra para el mes {mes}: ")
+      obra = entrada (obra)
+      abono = input(f"Ingrese los costos de abono para el mes {mes}: ")
+      abono = entrada (abono)
+      agua = input(f"Ingrese los costos de agua para el mes {mes}: ")
+      agua = entrada (agua)
+      mantenimiento = input(f"Ingrese los costos de mantenimiento para el mes {mes}: ")
+      mantenimiento = entrada(mantenimiento)
+      return obra, abono, agua, mantenimiento
+
+    def costos_totales(costos_totales):
+      return sum(costos_totales)
+    def calcular_promedio(costos_totales):
+      return sum(costos_totales) / len(costos_totales)
+
+    costos_totales = []
+
+    for mes in range(1, meses): 
+        obra, abono, agua, mantenimiento = ingreso_costos(mes)
+
+        costos_mes_total = obra + abono + agua + mantenimiento
+        costos_totales.append(costos_mes_total)
+    
+    print("""
+Costos totales discriminados por meses de cultivo:""")
+    for mes in range(1, meses):
+        print("Mes",mes,":")
+        print("Costos Totales: $",(costos_totales[mes - 1])) 
+        print("""Promedio de Costos mensuales:""", round(calcular_promedio(costos_totales),2))
+
+
+#El menú principal se plantea a modo de bucle:
+while True:
+    print("""
+    Bienvenido a la información para la huerta escolar, por favor indique una
+    de las siguientes opciones:
+
+    1. Horario de gestión del cultivo
+    2. Etapas del cultivo
+    3. Información contable
+    4. Salir""")
+
+#Se indica a continuación submenú 1 para el tipo de cultivo de interés, por lo
+#sería un condicional dentro de otro condicional
+
+    opcion = input()
+    if opcion == "1":
+        print("""
+        Para saber los horarios de gestión, indique el cultivo en el que tiene interés
+        1. Arroz
+        2. Garbanzo
+        3. Lenteja""")
+
+        #Esta opción para la gestión del cultivo de arroz (condicional)
+        opcion2 = input()
+
+        if opcion2 == "1":
+            print("""
+            El cultivo de arroz requiere:
+            Mantenimiento: Eliminación de malezas y monitoreo de plagas. Días Lunes a viernes, 9:00am o 5:00pm
+            Abono: Al inicio de la temporada de crecimiento. Días martes y jueves, 9:00am
+            Regado: Días Miércoles y viernes, 9:00am o 5:00pm""")
+
+        #Esta opción para la gestión del cultivo de garbanzo (condicional adicional)
+        elif opcion2 == "2":
+            print("""
+            El cultivo de garbanzo requiere:
+            Mantenimiento: Esto incluye actividades como el deshierbe, la inspección de plagas y enfermedades. Días Lunes a viernes, 7:00am
+            Abono: Al inicio de la temporada de crecimiento. Días miércoles y viernes, 7:00am
+            Regado: Días Lunes, Martes y Miércoles, 9:00am""")
+
+        #Esta opción para la gestión del cultivo de lenteja (condicional adicional)
+        elif opcion2 == "3":
+            print("""
+            El cultivo de lenteja requiere:
+            Mantenimiento: Esto incluye actividades como el deshierbe y monitoreo de plagas. Días Lunes a viernes, 8:30am
+            Abono: Al inicio de la temporada de crecimiento. Días miércoles y viernes, 8:30am
+            Regado: Días Viernes y sábados, 8:30am y 5:30pm""")
+
+
+        #Si el usuario elige una opción incorrecta (diferente a 1,2 o 3) dará incorrecta
+        else:
+            print("Opción incorrecta")
+
+    #Se indica a continuación submenú 2 para las etapas del cultivo indicadas en submenú 1
+    elif opcion == "2":
+        print("""
+        Para saber las etapas, indique el cultivo en el que tiene interés
+        1. Arroz
+        2. Garbanzo
+        3. Lenteja""")
+
+        opcion3 = input()
+        #Esta opción para las etapas de cultivo de arroz (condicional)
+        if opcion3 == "1":
+            print("""
+            El cultivo de arroz tiene las siguientes etapas:
+            Etapa siembra: Entre 1 a 6 días
+            Etapa crecimiento: Entre 40 y 50 días después de la siembra
+            Etapa cosecha: Entre 60 y 90 días después de la siembra""")
+
+        #Esta opción para las etapas de cultivo de garbanzo (condicional)
+        if opcion3 == "2":
+            print("""
+            El cultivo de garbanzo tiene las siguientes etapas:
+            Etapa siembra: Entre 7 a 10 días
+            Etapa crecimiento: Entre 60 y 80 días después de la germinación
+            Etapa cosecha: Entre 90 y 110 días después de la siembra""")
+
+        #Esta opción para las etapas de cultivo de lenteja (condicional)
+        if opcion3 == "3":
+            print("""
+            El cultivo de lenteja tiene las siguientes etapas:
+            Etapa siembra: Entre 7 a 14 días
+            Etapa crecimiento: Entre 60 y 80 días después de la germinación
+            Etapa cosecha: Entre 90 y 110 días después de la siembra""")
+
+        #De lo contrario:
+        else:
+            print("Opción incorrecta")
+
+    elif opcion == "3":
+        print("""
+Ingrese los datos solicitados para obtener la información contable del cultivo de arroz:""")
+        info_contable()
+
+    elif opcion == "4":
+      break
+
+
+#¿Es posible que un condicional tenga más de una condición de acceso? #Sí es posible, para ello se usan por ejemplo "elif" y "else"
+
+#¿Qué sucede si se hace uso de una sentencia break en un ciclo anidado #(Un ciclo que se encuentra dentro de otro ciclo)? En tal caso, break #aplicaría unicamente para el bucle en el que se especifica, más no #para la ejecución del bucle global o principal
+
+#¿Dentro de los paréntesis de la función range() se pueden poner #variables en vez de datos directamente? Sí es posible poner variables #como X, Y, Z, entre otros...siempre y cuando esas variables sean #enteros o expresiones que evalúen a enteros.

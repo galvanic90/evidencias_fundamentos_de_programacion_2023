@@ -1,0 +1,278 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "VHNaVCBsJw76"
+      },
+      "outputs": [],
+      "source": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Reto 3 -\n",
+        "DAVID ESTEBAN VILLA SANCHEZ - 1035425213\n",
+        "DANIELA CASTAÑO HENAO - 1036646842\n",
+        "\n",
+        "Primer punto: Cree una aplicación la cual proporcione un menú para llevar a cabo la gestión de recolección y mantenimiento de los cultivos de la huerta escolar.\n",
+        "En un principio debe crear los datos de los cultivos que estarán presentes en su aplicación, si desea puede implementar que esta información sea ingresada por consola. Los datos deben ser como mínimo los siguientes:\n",
+        "\n",
+        "\t•\tNombre del cultivo\n",
+        "\t•\tDías y Horario de Mantenimiento (Ej. Lunes, Jueves 4:00 pm).\n",
+        "\t•\tDías y Horario de Regado (Ej. Lunes, Jueves 4:00 pm).\n",
+        "\t•\tDías y Horario de Abono (Ej. Lunes, Jueves 4:00 pm).\n",
+        "\t•\tVariables para cada ETAPA del Cultivo y sus intervalos. (Ej. Etapa 1 – Fase Vegetativa, 5 a 30 días).\n",
+        "\n",
+        "Tenga en cuenta que todas las variables presentadas anteriormente pueden ser datos textuales para facilitar el trabajo.\n",
+        "\n",
+        "Su menú funciona de tal manera que se imprime un conjunto de opciones numeradas y se recibe por consola la opción que elija el usuario. Luego se evalúa la opción ingresada y se ejecutan las instrucciones correspondientes a esta tarea.\n",
+        "Entre sus opciones, deben encontrarse al menos las siguientes:\n",
+        "\n",
+        "\t•\tHorario de Gestión de Cultivo: si se elige esta opción, se deben imprimir las opciones de cultivos numerados y recibir por consola la opción del usuario.\n",
+        "Tras escoger un cultivo, se debe evaluar el cultivo que escogió e imprimir los días y horarios de Mantenimiento, Regado y Abono del Respectivo Cultivo.\n",
+        "\n",
+        "\t•\tEtapas del Cultivo: si se elige esta opción, se deben imprimir las opciones de cultivos numerados y recibir por consola la opción del usuario.\n",
+        "Tras escoger un cultivo, se debe evaluar el cultivo que escogió e imprimir todas las Etapas del Respectivo Cultivo.\n",
+        "\n",
+        "\t•\tInformación Contable:  Aquí se desarrolla el punto 2 del reto.\n",
+        "\n",
+        "\t•\tSalir: si se elige esta opción, simplemente se debe finalizar la ejecución de la aplicación.\n",
+        "\n",
+        "Tras finalizar con las instrucciones de la opción elegida, se debe volver a imprimir el menú para que el usuario pueda escoger otra opción si así lo desea.\n",
+        "Recuerde la técnica de ciclo infinito con break dentro del bloque de código, la cual le puede ser de gran utilidad para el desarrollo de esta aplicación.\n"
+      ],
+      "metadata": {
+        "id": "mTr_RqkAJxeo"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from re import I\n",
+        "from ast import While\n",
+        "#Para este punto aunque no usamos el paradigma funcional en su totalidad, utilizamos uno de sus conceptos, el cual es las variables globales\n",
+        "i=0\n",
+        "while True:\n",
+        "    i+=1\n",
+        "    print('''     ------Bienvenido la calculadora contable de sus cultivo.------\n",
+        "\n",
+        "\n",
+        "   ------A continuación se le presentaran las siguientes opciones para conocer el estudio contable de sus cultivos.------\n",
+        "    ''')\n",
+        "#En esta seccion del código se le pide al usuario que ingrese la información requerida para cada cultivo\n",
+        "#se puede ingresar n datos, se para cuando el usuario ingrese la opción 1\n",
+        "#Este es el mení principal, el de los cultivos\n",
+        "    exec(f\"Nombre{i}=input('Ingrese Nombre del cultivo {i}: ')\")\n",
+        "    exec(f\"Mantenimiento{i}=input('Días y Horario de Mantenimiento {i} (Ej. Lunes, Jueves 4:00 pm) : ')\")\n",
+        "    exec(f\"Regado{i}=input('Días y Horario de Regado {i} (Ej. Lunes, Jueves 4:00 pm): ')\")\n",
+        "    exec(f\"Abono{i}=input('Días y Horario de Abono  {i} (Ej. Lunes, Jueves 4:00 pm) : ')\")\n",
+        "    exec(f\"Etapas{i}=input('Variables para cada ETAPA del Cultivo y sus intervalos {i} (Ingrese el numero correspondiente 1.SIEMBRA 2.CRECIMIENTO 3.COSECHA): ')\")\n",
+        "    #Se añaden estas líneas para que se almacene tambien la información contable de cada uno de los cultivos\n",
+        "    exec(f\"manoobra{i}=input('Ingrese el valor pagado a los trabajadores del cultivo{i}:')\")\n",
+        "    exec(f\"abono{i}=int(input('Ingrese el valor pagado por el abono aplicado al cultivo{i}: '))\")\n",
+        "    exec(f\"agua{i}=int(input('Ingrese el valor pagado por el agua del riego del cultivo {i} (que no proviene del riego directo por la lluvia): '))\")\n",
+        "    exec(f\"mantenimiento{i}=int(input('ingrese el valor pagado por mantenimiento de los equipos, herramientas y elementos que requieren cultivo{i}: '))\")\n",
+        "    #Se añaden estas líneas para que se almacene tambien la información de la producción de cada uno de los cultivos\n",
+        "    exec(f\"valormercado{i}=int(input('Ingrese el valor del cultivo{i} por kg: '))\")\n",
+        "    exec(f\"cantidadrecogida{i}=int(input('Ingrese  la cantidad kg recogidas del cultivo{i}: '))\")\n",
+        "\n",
+        "    Finalizar=input(\"Si desea finalizar el ingreso de información ingrese '1', de lo contrario ingrese '0': \")\n",
+        "    if Finalizar=='1':\n",
+        "      n=i+1\n",
+        "      break\n",
+        "\n",
+        "\n",
+        "#En esta seccion aparece el submenú, en el cual puede escoger la información que desea conocer,\n",
+        "#Como el horario de gestion del cultivom las etapas del cultivo, o la información contable\n",
+        "\n",
+        "while True:\n",
+        "\n",
+        "  print(\"\"\"\n",
+        "  Seleccione un cultivo a validar\"\"\")\n",
+        "  i=int(1)\n",
+        "  for i in range(1,n):\n",
+        "    exec(f\"print('{i}. Nombre cultivo {i}: {globals()[f'Nombre{i}']}')\")\n",
+        "\n",
+        "    i=input(\"\")\n",
+        "\n",
+        "  Menu=input('''\n",
+        "  Seleccione una opción:\n",
+        "\n",
+        "  1. Horario de Gestión de Cultivo: si se elige esta opción, se deben imprimir las opciones de cultivos numerados y recibir por consola la opción del usuario.\n",
+        "  Tras escoger un cultivo, se debe evaluar el cultivo que escogió e imprimir los días y horarios de Mantenimiento, Regado y Abono del Respectivo Cultivo.\n",
+        "\n",
+        "  2. Etapas del Cultivo: si se elige esta opción, se deben imprimir las opciones de cultivos numerados y recibir por consola la opción del usuario.\n",
+        "  Tras escoger un cultivo, se debe evaluar el cultivo que escogió e imprimir todas las Etapas del Respectivo Cultivo.\n",
+        "\n",
+        "  3. Información Contable:  Aquí se desarrolla el punto 2 del reto.\n",
+        "\n",
+        "  4. Salir: si se elige esta opción, simplemente se debe finalizar la ejecución de la aplicación.\n",
+        "\n",
+        "  ''')\n",
+        "\n",
+        "  if Menu == '4': # esto evalua si se selecciona una de las 4 opciones del menú y el resultado sucede, de acuerdo a la elección\n",
+        "       print('Ha seleccinado la opción Salir. ¡Hasta la próxima!')\n",
+        "       break\n",
+        "\n",
+        "#Esta es la opción 1 del submenú, en donde se entregra la información de gestión del cultivo\n",
+        "  elif Menu=='1':\n",
+        "    print(globals()[f'Nombre{i}'])\n",
+        "    print(globals()[f'Mantenimiento{i}'])\n",
+        "    print(globals()[f'Regado{i}'])\n",
+        "    print(globals()[f'Abono{i}'])\n",
+        "#Esta es la opción 2 del submenú, en donde se entregra la información de las etapas de los cultivos\n",
+        "  elif Menu=='2':\n",
+        "    #print(globals()[f'Nombre{i}'])\n",
+        "    if (globals()[f'Etapas{i}'])=='1':\n",
+        "      print(\"SIEMBRA\")\n",
+        "    elif (globals()[f'Etapas{i}'])=='2':\n",
+        "      print(\"CRECIMIENTO\")\n",
+        "    elif (globals()[f'Etapas{i}'])=='3':\n",
+        "      print(\"COSECHA\")\n",
+        "\n",
+        "\n",
+        "#Esta es la opción 2 del submenú, en donde se entregra la información contable deñ cultivo seleccionado\n",
+        "  elif Menu=='3':\n",
+        "\n",
+        "    while True:\n",
+        "\n",
+        "      print(\"\"\"\n",
+        "      Seleccione un cultivo a validar\"\"\") #Se agrega esta nueva línea\n",
+        "      i=int(1) #Se agrega esta nueva línea\n",
+        "      for i in range(1,n): #Se agrega esta nueva línea\n",
+        "        exec(f\"print('{i}. Nombre cultivo {i}: {globals()[f'Nombre{i}']}')\") #Se agrega esta nueva línea\n",
+        "        i=input(\"\") #Se agrega esta nueva línea\n",
+        "        break\n",
+        "\n",
+        "\n",
+        "\n",
+        "      Punto2=input('''\n",
+        "      1 Costos\n",
+        "      2 Producción\n",
+        "      3 Calcular resultados\n",
+        "      4 Regresar al Menú\n",
+        "      ''')\n",
+        "      #Aquí se ingresa los costos del cultivo seleccionado\n",
+        "      if Punto2 =='1':\n",
+        "        i=int(1) #Se agrega esta nueva línea\n",
+        "      for i in range(1,n): #Se agrega esta nueva línea\n",
+        "        exec(f\"print('{i}. Nombre cultivo {i}: {globals()[f'Nombre{i}']}')\") #Se agrega esta nueva línea\n",
+        "        i=input(\"\") #Se agrega esta nueva línea\n",
+        "\n",
+        "\n",
+        "        manoobra = int(globals()[f'manoobra{i}'])\n",
+        "        print(\"El valor de la mano de obra es: \",manoobra)\n",
+        "        abono = int(globals()[f'abono{i}'])\n",
+        "        print(\"El valor del abono es: \",abono)\n",
+        "        agua = int(globals()[f'agua{i}'])\n",
+        "        print(\"El valor del consumo de agua es: \",agua)\n",
+        "        mantenimiento = int(globals()[f'mantenimiento{i}'])\n",
+        "        print(\"El valor del mantenimiento es: \",mantenimiento)\n",
+        "\n",
+        "          #manoobra=int(input(\"Ingrese el valor pagado a los trabajadores: \"))#--se reemplaza esta linea por print(globals()[f'manoobra{i}'])\n",
+        "          #abono=int(input(\"Ingrese el valor pagado por el abono aplicado al cultivo: \"))#-- se reemplaza esta linea por print(globals()[f'abono{i}'])\n",
+        "          #agua=int(input(\"Ingrese el valor pagado por el agua del riego (que no proviene del riego directo por la lluvia): \"))#-- se reemplaza esta linea por print(globals()[f'agua{i}'])\n",
+        "          #mantenimiento=int(input('ingrese el valor pagado por mantenimiento de los equipos, herramientas y elementos que requieren cultivo: '))#-- se reemplaza esta linea por print(globals()[f'mantenimiento{i}'])\n",
+        "      if Punto2=='2':\n",
+        "          i=int(1) #Se agrega esta nueva línea\n",
+        "      for i in range(1,n): #Se agrega esta nueva línea\n",
+        "          exec(f\"print('{i}. Nombre cultivo {i}: {globals()[f'Nombre{i}']}')\") #Se agrega esta nueva línea\n",
+        "          i=input(\"\") #Se agrega esta nueva línea\n",
+        "        #Aquí se ingresa la información de la producción del cultivo seleccionado\n",
+        "          #valormercado=int(input(\"Ingrese el valor del cultivo por arroba (12.5 kilos) de arroz: \"))\n",
+        "          #valormercado=int(input(\"Ingrese el valor del cultivo por kg: \"))#-- se reemplaza esta linea por print(globals()[f'valormercado{i}'])\n",
+        "          #cantidadrecogida=int(input(\"Ingrese  la cantidad kg recogidas: \"))#-- se reemplaza esta linea por print(globals()[f'cantidadrecogida{i}'])\n",
+        "\n",
+        "          valormercado = int(globals()[f'valormercado{i}'])\n",
+        "          print(\"El valor del cultivo en el mercado por kg es: \",valormercado)\n",
+        "          type(valormercado)\n",
+        "          cantidadrecogida = int(globals()[f'cantidadrecogida{i}'])\n",
+        "          print(\"La cantidad en kg recogida es: \",cantidadrecogida)\n",
+        "          type(cantidadrecogida)\n",
+        "\n",
+        "      if Punto2=='3':\n",
+        "          i=int(1) #Se agrega esta nueva línea\n",
+        "          for i in range(1,n): #Se agrega esta nueva línea\n",
+        "            exec(f\"print('{i}. Nombre cultivo {i}: {globals()[f'Nombre{i}']}')\") #Se agrega esta nueva línea\n",
+        "            i=input(\"\") #Se agrega esta nueva línea\n",
+        "\n",
+        "          #Total=manoobra+abono+agua+mantenimiento\n",
+        "          #Promedio=(manoobra+abono+agua+mantenimiento)/4\n",
+        "          #Utilidades=valormercado*cantidadrecogida\n",
+        "          Total = int(manoobra + abono + agua + mantenimiento)\n",
+        "          Promedio=int(manoobra + abono + agua + mantenimiento)/4\n",
+        "          Utilidades=int(valormercado*cantidadrecogida)\n",
+        "\n",
+        "          print(\"Los costos totales del cultivo son: \", Total)\n",
+        "          print(\"El valor promedio de los costos fijos es de: \", Promedio)\n",
+        "          if Utilidades>Total:\n",
+        "            print(\"Se obtuvo una ganancia de: \", Utilidades-Total)\n",
+        "          else:\n",
+        "            print(\"Se obtuvo una pérdida de: \", Utilidades-Total)\n",
+        "          print(\"Si el precio aumenta un 37% la ganancia obtenida sería de: \", round(Utilidades*1.037,0))\n",
+        "          print(\"Si los costos y gastos disminuyen en un 5% y la cantidad de producida en un 63%, la ganancia sería de: \", (int(valormercado*cantidadrecogida)*1.63-(Total*0.95)))\n",
+        "          print(\"Se ha finalizado la aplicación\")\n",
+        "          break\n",
+        "\n",
+        "      if Punto2 == '4':\n",
+        "          print('Ha seleccinado la opción Salir. ¡Hasta la próxima!')\n",
+        "          break\n",
+        "\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "iqFOQSDQKGAv"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
+
+#RETO 
+
+#Punto 1. 
+#Tome el enunciado y la solución elaborada del reto 3, identifique si aplicó el paradigma funcional, 
+#si lo aplicó correctamente, si faltaron funciones o pudieron realizarse otras. 
+#Construya un documento que recopile las falencias, aciertos, dudas y dificultades que se le presentaron 
+#al aplicar los conceptos del paradigma funcional a la solución del reto 3.
+
+
+#RESPUESTA: En el reto se utilizo el paradigma funcional al usar variables globales para realizar 
+#los respectivos calculos de acuerdo a la información solicitada, el cambio que se hizo para esta entrega es que se ingresan toda la información del cultivo, 
+#para así almacenar la información y posterior analisis, contrario al anterior entregable, ya que la información contable se ingresaba, cuando se seleccionaba dicja opcion
+
+#En caso de no haber aplicado el paradigma funcional en el reto 3, analice cómo pudiera aplicarlo, 
+#qué funciones haría y qué pasos debería seguir para crear la solución bajo este paradigma, 
+#y construya un documento tipo texto con los resultados de este análisis y sugerencias, 
+#de tal forma que un programador pudiera realizar dicha implementación bajo el paradigma funcional.
+
+#RESPUESTA:
+
+#se debe definir el menú principal, el cual tendra como opciones la informacion de del cultivo. datos del cultivo, horario y gestion del cultivo
+#etapas del cultivo y la información contable
+
+#Se pudo usar el paradigma funcional usando las funciones, definiendo el submenú de los costos, 
+#en donde se ingresara por teclado el costo de la mano de obra, costo del agua, costo del mantenimiento y costo del abono
+
+#despues definiria el submenu de la produccion
+en donde se ingresara por teclado la cantidad de kg cosechados y el valor del kg
+
+#por ultimo imprimir toda la información recolectada

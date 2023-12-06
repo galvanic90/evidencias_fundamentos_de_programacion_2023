@@ -1,0 +1,111 @@
+#Reto3
+# Juan José Duque Giraldo       CC 1001724543
+#Alejandro Vargas Ocampo CC 1088298091
+
+# Definir una lista de diccionarios para almacenar los datos de los cultivos
+cultivos = [
+    {
+        'Nombre': 'Arroz',
+        'Mantenimiento': 'Lunes, Jueves 4:00 pm',
+        'Regado': 'Martes, Viernes 3:00 pm',
+        'Abono': 'Miércoles, Sábado 2:00 pm',
+        'Siembra': 'Primavera',
+        'Crecimiento': 'Verano',
+        'Cosecha': 'Otoño'
+    }
+]
+
+# Función para imprimir el menú principal
+def imprimir_menu():
+    print("Menú Principal:")
+    print("1. Horario de Gestión de Cultivo")
+    print("2. Etapas del Cultivo")
+    print("3. Información Contable")
+    print("4. Salir")
+
+# Función para imprimir el submenú de costos
+def imprimir_submenu_costos():
+    print("\nSubmenú de Costos:")
+    print("1. Mano de obra")
+    print("2. Abono")
+    print("3. Agua")
+    print("4. Mantenimiento")
+
+# Función para calcular los costos totales
+def calcular_costos_totales(mano_obra, abono, agua, mantenimiento):
+    return mano_obra + abono + agua + mantenimiento
+
+# Función principal
+def main():
+    print("Bienvenido a la aplicación de gestión de huerta escolar")
+
+    while True:
+        imprimir_menu()
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == '1':
+            # Horario de Gestión de Cultivo
+            print("\nCultivos disponibles:")
+            for idx, cultivo in enumerate(cultivos):
+                print(f"{idx + 1}. {cultivo['Nombre']}")
+
+            seleccion = int(input("Seleccione un cultivo: ")) - 1
+            cultivo_seleccionado = cultivos[seleccion]
+            print(f"\nHorario de Mantenimiento: {cultivo_seleccionado['Mantenimiento']}")
+            print(f"Horario de Regado: {cultivo_seleccionado['Regado']}")
+            print(f"Horario de Abono: {cultivo_seleccionado['Abono']}")
+
+        elif opcion == '2':
+            # Etapas del Cultivo
+            print("\nEtapas del Cultivo:")
+            for etapa in cultivo_seleccionado.keys():
+                if etapa != 'Nombre':
+                    print(etapa)
+
+            etapa_de_cultivo = input("Seleccione una etapa de cultivo: ")
+
+        elif opcion == '3':
+            # Información Contable
+            print("\nIngrese los costos mensuales:")
+            imprimir_submenu_costos()
+            mano_obra = float(input("Mano de obra: "))
+            abono = float(input("Abono: "))
+            agua = float(input("Agua: "))
+            mantenimiento = float(input("Mantenimiento: "))
+
+            costo_total = calcular_costos_totales(mano_obra, abono, agua, mantenimiento)
+            costo_promedio = costo_total / 4
+
+            print(f"\nCostos totales del cultivo: {costo_total}")
+            print(f"Valor promedio de costos fijos: {costo_promedio}")
+
+            cantidad_arrobas = float(input("\nIngrese la cantidad de kilos recolectados: "))
+            valor_arroba = float(input("Ingrese el valor de la arroba (12.5 kilos) de arroz: "))
+
+            ingresos = cantidad_arrobas * valor_arroba
+            ganancia = ingresos - costo_total
+
+            print(f"¿Hubo ganancia? {'SI' if ganancia > 0 else 'NO'}")
+            print(f"Ganancia obtenida: {ganancia}")
+
+            precio_incrementado = valor_arroba * 1.37
+            ganancia_incrementada = (cantidad_arrobas * precio_incrementado) - costo_total
+
+            print(f"Ganancia con precio incrementado: {ganancia_incrementada}")
+
+            costo_disminuido = costo_total * 0.95
+            produccion_disminuida = cantidad_arrobas * 0.63
+            ganancia_disminuida = (produccion_disminuida * valor_arroba) - costo_disminuido
+
+            print(f"Ganancia con costos y producción disminuidos: {ganancia_disminuida}")
+
+        elif opcion == '4':
+            # Salir
+            print("Gracias por usar la aplicación. ¡Hasta luego!")
+            break
+
+        else:
+            print("Opción no válida. Por favor, seleccione una opción válida.")
+
+if __name__ == "__main__":
+    main()
